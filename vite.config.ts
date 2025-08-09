@@ -11,4 +11,17 @@ export default defineConfig({
       '@components': resolve(__dirname, 'src/components'),
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true, // 隐藏依赖中的弃用警告
+        silenceDeprecations: [
+          'color-functions',
+          'import',
+          'global-builtin',
+          'slash-div',
+        ], // 静默特定的弃用警告
+      },
+    },
+  },
 });

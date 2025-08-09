@@ -1,4 +1,4 @@
-import Button, { ButtonSize, ButtonType } from '@/components/Button';
+import Button from '@/components/Button/index';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
         }}
       >
         <Button>Default Button</Button>
-        <Button btnType={ButtonType.Primary}>Primary Button</Button>
-        <Button btnType={ButtonType.Danger}>Danger Button</Button>
-        <Button btnType={ButtonType.Link} href="xx">
+        <Button btnType="primary">Primary Button</Button>
+        <Button btnType="danger">Danger Button</Button>
+        <Button btnType="link" href="xx">
           Link Button
         </Button>
         <Button disabled>Disabled Button</Button>
@@ -26,8 +26,8 @@ function App() {
         }}
       >
         <Button>Normal Button</Button>
-        <Button size={ButtonSize.Small}>Small Button</Button>
-        <Button size={ButtonSize.Large}>Large Button</Button>
+        <Button size="small">Small Button</Button>
+        <Button size="large">Large Button</Button>
       </div>
     </>
   );
