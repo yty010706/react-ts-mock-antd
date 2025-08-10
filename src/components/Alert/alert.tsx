@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 
-export type AlertType = 'success' | 'default' | 'danger' | 'warning';
+type AlertType = 'success' | 'default' | 'danger' | 'warning';
 interface BaseAlertProps {
   title: string | React.ReactNode;
   description: string | React.ReactNode;
@@ -9,7 +9,7 @@ interface BaseAlertProps {
   onClose: () => void;
   closable: boolean;
 }
-type AlertProps = Partial<BaseAlertProps>;
+export type AlertProps = Partial<BaseAlertProps>;
 const Alert: React.FC<AlertProps> = props => {
   const {
     title = 'this is title',
@@ -30,7 +30,7 @@ const Alert: React.FC<AlertProps> = props => {
   return (
     <>
       {!hide && (
-        <div className={alertClasses}>
+        <div className={alertClasses} data-testid="alert">
           <div className={alertTitleClasses}>{title}</div>
           {description && (
             <div className="alert-description">{description}</div>
