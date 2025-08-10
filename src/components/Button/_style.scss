@@ -1,3 +1,11 @@
+$btn-type-color: (
+  'primary': $primary,
+  'danger':$danger,
+  'warning':$warning,
+  'success':$success,
+  'info':$info
+);
+
 .btn {
   position: relative;
   display: inline-block;
@@ -27,12 +35,10 @@
   }
 }
 
-.btn-primary {
-  @include button-style($primary, $primary, $white)
-}
-
-.btn-danger {
-  @include button-style($danger, $danger, $white)
+@each $color, $value in $btn-type-color {
+  .btn-#{$color} {
+    @include button-style($value, $value, $white)
+  }
 }
 
 .btn-link {
@@ -60,6 +66,11 @@
 
 .btn-default {
   @include button-style($white, $gray-400, $body-color, $white, $primary, $primary)
+}
+
+.btn-dashed {
+  border-style: dashed;
+  @extend .btn-default
 }
 
 .btn-large {

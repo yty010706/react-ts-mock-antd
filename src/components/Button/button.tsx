@@ -2,15 +2,15 @@ import classNames from 'classnames';
 import React from 'react';
 
 export type ButtonSize = 'small' | 'large';
-export type ButtonType = 'primary' | 'danger' | 'link' | 'default';
+export type ButtonType = 'primary' | 'danger' | 'link' | 'default' | 'dashed';
 
 interface BaseButtonProps {
-  className?: string;
-  btnType?: ButtonType;
-  size?: ButtonSize;
-  children?: React.ReactNode;
+  className: string;
+  btnType: ButtonType;
+  size: ButtonSize;
+  children: React.ReactNode;
 }
-type ButtonProps = Partial<
+export type ButtonProps = Partial<
   BaseButtonProps &
     React.ButtonHTMLAttributes<HTMLElement> &
     React.LinkHTMLAttributes<HTMLElement>

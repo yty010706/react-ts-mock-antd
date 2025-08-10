@@ -1,6 +1,6 @@
 import Button from '@/components/Button/index';
 
-function App() {
+function TestButton() {
   return (
     <>
       <div
@@ -14,6 +14,7 @@ function App() {
         <Button>Default Button</Button>
         <Button btnType="primary">Primary Button</Button>
         <Button btnType="danger">Danger Button</Button>
+        <Button btnType="dashed">Dashed Button</Button>
         <Button btnType="link" href="xx">
           Link Button
         </Button>
@@ -33,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+export default TestButton;

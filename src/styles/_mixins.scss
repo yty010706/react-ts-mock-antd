@@ -36,3 +36,10 @@
     border-color: $border;
   }
 }
+
+// 文字超出省略号
+@mixin ellipse() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

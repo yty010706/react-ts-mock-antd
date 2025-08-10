@@ -207,6 +207,26 @@
 
     $btn-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
 
+    // alert
+    // 基本属性                 
+    $alert-padding-y:              .75rem !default;
+    $alert-padding-x:              1.25rem !default;
+    $alert-font-size:              $font-size-base !default;
+    $alert-border-width:           $border-width !default;
+    $alert-border-radius:          $border-radius !default;
+
+    // 标题
+    $alert-title-font-weight:      600 !default;
+
+    // 描述
+    $alert-description-font-size:  $font-size-sm !default;
+
+    // close图标
+    $alert-close-top:              .4rem !default;
+    $alert-close-right:            .7rem !default;
+    $alert-close-font-weight:      $alert-title-font-weight !default;
+    $alert-close-font-size:        $font-size-lg !default;
+
     // menu
     $menu-border-width:            $border-width !default;
     $menu-border-color:            $border-color !default;
