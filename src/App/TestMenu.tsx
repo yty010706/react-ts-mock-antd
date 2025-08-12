@@ -1,5 +1,7 @@
 import Menu from '@/components/Menu';
-import MenuItem from '@/components/Menu/menuItem';
+
+const MenuItem = Menu.Item;
+const SubMenu = Menu.SubMenu;
 
 function TestMenu() {
   return (
@@ -14,12 +16,34 @@ function TestMenu() {
           }
         }
       >
-        <Menu defaultIndex={1} onSelect={index => console.log(index)}>
-          <MenuItem index={1}>1</MenuItem>
-          <MenuItem index={2} disabled>
-            2
-          </MenuItem>
-          <MenuItem index={3}>3</MenuItem>
+        <Menu
+          defaultIndex={'0'}
+          onSelect={index => console.log(index)}
+          mode="horizontal"
+        >
+          <MenuItem>主页</MenuItem>
+          <MenuItem disabled>关注</MenuItem>
+          <MenuItem>设置</MenuItem>
+          <SubMenu title="下拉菜单">
+            <MenuItem>主页</MenuItem>
+            <MenuItem disabled>关注</MenuItem>
+            <MenuItem>设置</MenuItem>
+          </SubMenu>
+        </Menu>
+        <Menu
+          defaultIndex={'0'}
+          // defaultOpenSubMenus={['3']}
+          onSelect={index => console.log(index)}
+          mode="vertical"
+        >
+          <MenuItem>主页</MenuItem>
+          <MenuItem disabled>关注</MenuItem>
+          <MenuItem>设置</MenuItem>
+          <SubMenu title="下拉菜单">
+            <MenuItem>主页</MenuItem>
+            <MenuItem disabled>关注</MenuItem>
+            <MenuItem>设置</MenuItem>
+          </SubMenu>
         </Menu>
       </div>
     </>

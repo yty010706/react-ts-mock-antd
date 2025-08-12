@@ -43,3 +43,118 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+// 水平垂直Menu
+@mixin menu($horizontal: true) {
+  @if $horizontal {
+    flex-direction: row;
+
+    .menu-item {
+      border-bottom: $menu-item-active-border-width solid transparent;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+
+      &.active,
+      &:hover {
+        color: $menu-item-active-color;
+        border-bottom: $menu-item-active-border-width solid $menu-item-active-color;
+      }
+
+      &.disabled,
+      &[disabled] {
+        color: $menu-item-disabled-color;
+        cursor: not-allowed;
+        border-bottom: none;
+
+        >* {
+          pointer-events: none;
+        }
+      }
+    }
+
+    .sub-menu-item {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: $white;
+      padding-left: 0;
+      width: 100%;
+      white-space: nowrap;
+      text-align: center;
+      box-shadow: $submenu-box-shadow;
+      list-style: none;
+      z-index: 100;
+
+      .menu-item {
+        color: initial;
+
+        &.active,
+        &:hover {
+          color: $menu-item-active-color;
+          border-bottom: $menu-item-active-border-width solid $menu-item-active-color;
+        }
+
+        &.disabled,
+        &[disabled] {
+          color: $menu-item-disabled-color;
+          border-bottom: none;
+        }
+      }
+    }
+  }
+
+  @else {
+    flex-direction: column;
+
+    .menu-item {
+      border-left: $menu-item-active-border-width solid transparent;
+
+      &:hover,
+      &:focus {
+        text-decoration: none;
+      }
+
+      &.active,
+      &:hover {
+        color: $menu-item-active-color;
+        border-left: $menu-item-active-border-width solid $menu-item-active-color;
+      }
+
+      &.disabled,
+      &[disabled] {
+        color: $menu-item-disabled-color;
+        cursor: not-allowed;
+        border-left: none;
+
+        >* {
+          pointer-events: none;
+        }
+      }
+
+      .sub-menu-item {
+        background: $white;
+        padding-left: 0;
+        white-space: nowrap;
+        list-style: none;
+
+        .menu-item {
+          color: initial;
+          border-left: none;
+
+          &.active,
+          &:hover {
+            color: $menu-item-active-color;
+          }
+
+          &.disabled,
+          &[disabled] {
+            color: $menu-item-disabled-color;
+          }
+        }
+      }
+    }
+  }
+}

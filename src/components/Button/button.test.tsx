@@ -69,7 +69,6 @@ describe('Test Button', () => {
     );
 
     const button = wrapper.getByTestId('disabled-button') as HTMLButtonElement;
-    console.log(button.attributes);
     expect(button).toBeInTheDocument();
     expect(button.disabled).toBeTruthy();
     fireEvent.click(button);

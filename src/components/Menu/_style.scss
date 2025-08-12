@@ -1,3 +1,42 @@
 .menu {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 200px;
+  box-shadow: $menu-box-shadow;
   list-style: none;
+
+  .menu-item {
+    padding: $menu-item-padding-y $menu-item-padding-x;
+    cursor: pointer;
+    transition: $menu-transition;
+  }
+
+  .sub-menu {
+    position: relative;
+
+    .sub-menu-title {
+      display: flex;
+      align-items: center;
+    }
+
+    .arrow-icon {
+      transition: transform .25s ease-in-out;
+      margin-left: 3px;
+    }
+
+    &:hover {
+      .arrow-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+.menu-horizontal {
+  @include menu();
+}
+
+.menu-vertical {
+  @include menu(false);
 }

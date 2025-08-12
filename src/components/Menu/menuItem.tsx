@@ -3,11 +3,12 @@ import { useContext } from 'react';
 import { MenuContext } from './menu';
 
 type BaseMenuItemProps = {
-  index: number;
-  disabled?: boolean;
+  index: string;
+  disabled: boolean;
 };
-export type MenuItemProps = BaseMenuItemProps &
-  React.HTMLAttributes<HTMLLIElement>;
+export type MenuItemProps = Partial<
+  BaseMenuItemProps & React.HTMLAttributes<HTMLLIElement>
+>;
 const MenuItem: React.FC<MenuItemProps> = props => {
   const { index, children, disabled, className } = props;
   const { selectIdx, onSelect } = useContext(MenuContext);
@@ -18,16 +19,18 @@ const MenuItem: React.FC<MenuItemProps> = props => {
 
   const handleClick = () => {
     if (onSelect && !disabled) {
-      onSelect(index);
+      onSelect(index!);
     }
   };
   return (
     <>
-      <li className={classes} onClick={handleClick}>
+      <li className={classes} onClick={handleClick} key={index}>
         {children}
       </li>
     </>
   );
 };
+
+MenuItem.displayName = 'MenuItem';
 
 export default MenuItem;
