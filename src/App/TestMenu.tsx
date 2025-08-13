@@ -1,5 +1,8 @@
 import Menu from '@/components/Menu';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
+library.add(fas);
 const MenuItem = Menu.Item;
 const SubMenu = Menu.SubMenu;
 

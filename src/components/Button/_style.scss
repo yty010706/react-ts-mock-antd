@@ -1,11 +1,3 @@
-$btn-type-color: (
-  'primary': $primary,
-  'danger':$danger,
-  'warning':$warning,
-  'success':$success,
-  'info':$info
-);
-
 .btn {
   position: relative;
   display: inline-block;
@@ -35,7 +27,7 @@ $btn-type-color: (
   }
 }
 
-@each $color, $value in $btn-type-color {
+@each $color, $value in $theme-colors {
   .btn-#{$color} {
     @include button-style($value, $value, $white)
   }

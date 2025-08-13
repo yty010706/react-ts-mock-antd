@@ -11,26 +11,6 @@
     cursor: pointer;
     transition: $menu-transition;
   }
-
-  .sub-menu {
-    position: relative;
-
-    .sub-menu-title {
-      display: flex;
-      align-items: center;
-    }
-
-    .arrow-icon {
-      transition: transform .25s ease-in-out;
-      margin-left: 3px;
-    }
-
-    &:hover {
-      .arrow-icon {
-        transform: rotate(180deg);
-      }
-    }
-  }
 }
 
 .menu-horizontal {

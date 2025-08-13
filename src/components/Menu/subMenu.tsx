@@ -6,11 +6,13 @@ import React, {
   ReactElement,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { MenuContext } from './menu';
 import classNames from 'classnames';
 import { MenuItemProps } from './menuItem';
+import Icon from '../Icon';
 
 interface BaseSubMenuProps {
   index: string;
@@ -36,9 +38,12 @@ const SubMenu: React.FC<SubMenuProps> = props => {
     }
   }, [selectIdx]);
 
-  const classes = classNames('menu-item', 'sub-menu', className, {
-    active: selectIdx.startsWith(index!),
-  });
+  const classes = useMemo(() => {
+    return classNames('menu-item', 'sub-menu', className, {
+      active: selectIdx.startsWith(index!),
+      'sub-menu-open': open,
+    });
+  }, [open]);
 
   const renderChildren = () => {
     const childElement = React.Children.map(children, (child, idx) => {
@@ -55,11 +60,7 @@ const SubMenu: React.FC<SubMenuProps> = props => {
         );
       }
     });
-    const classes = classNames('sub-menu-item', {
-      'sub-menu-open': open,
-    });
-
-    return <ul className={classes}>{childElement}</ul>;
+    return <ul className="sub-menu-item">{childElement}</ul>;
   };
 
   let timer: any = null;
@@ -92,6 +93,7 @@ const SubMenu: React.FC<SubMenuProps> = props => {
       <li key={index} className={classes} {...hoverEvents}>
         <div className="sub-menu-title" {...clickEvents}>
           {title}
+          <Icon icon="angle-down" className="arrow-icon" size="sm" />
         </div>
         {open && renderChildren()}
       </li>

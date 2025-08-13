@@ -1,4 +1,6 @@
 import Tabs from '@/components/Tabs';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 const TabItem = Tabs.Item;
 
@@ -11,9 +13,17 @@ function TestTabs() {
           <TabItem label="关注" disabled>
             关注
           </TabItem>
-          <TabItem label="设置">{<div>123</div>}</TabItem>
+          <TabItem label="设置">
+            {
+              <h2>
+                {123}
+                <button>+1</button>
+              </h2>
+            }
+          </TabItem>
         </Tabs>
       </div>
+      <FontAwesomeIcon icon={faCoffee} size="xl" color="brown" beat />
     </>
   );
 }
