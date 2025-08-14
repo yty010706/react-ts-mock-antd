@@ -18,7 +18,7 @@ function App() {
         description="描述"
         closeIcon={<Icon icon="close" />}
       />
-      {/* <Alert
+      <Alert
         title="标题"
         description="描述SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
         type="success"
@@ -26,7 +26,7 @@ function App() {
       <Alert title="标题" description="描述" type="warning" />
       <Alert title="标题" description="描述" type="danger" />
       <Alert title="标题" description="描述" closable={false} />
-      <Alert title="标题" description="描述" onClose={() => alert('关闭了')} /> */}
+      <Alert title="标题" description="描述" onClose={() => alert('关闭了')} />
     </div>
   );
 }

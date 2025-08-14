@@ -199,7 +199,7 @@
   }
 }
 
-// zoom动画
+// zoom-in动画
 @mixin zoom-in-animation($direction: 'top', $scaleBegin: scaleY(0), $scaleEnd: scaleY(1), $transformOrigin: center top) {
   .zoom-in-#{$direction}-enter {
     opacity: 0;
@@ -225,6 +225,7 @@
   }
 }
 
+// zoom-out动画
 @mixin zoom-out-animation($direction: 'top', $outScale: scaleY(0), $transformOrigin: center top) {
   .zoom-out-#{$direction}-enter {
     opacity: 1;
@@ -238,7 +239,6 @@
   }
 
   .zoom-out-#{$direction}-enter-done {
-    opacity: 0;
-    transform: $outScale;
+    display: none;
   }
 }
