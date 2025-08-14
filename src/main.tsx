@@ -6,4 +6,4 @@ import TestTabs from './App/TestTabs';
 import TestIcon from './App/TestIcon';
 import './styles/index.scss';
 
-createRoot(document.getElementById('root')!).render(<TestMenu />);
+createRoot(document.getElementById('root')!).render(<TestAlert />);

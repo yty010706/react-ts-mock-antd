@@ -12,7 +12,7 @@ type Theme =
   | 'info'
   | 'warning'
   | 'danger';
-interface IconProps extends FontAwesomeIconProps {
+export interface IconProps extends FontAwesomeIconProps {
   theme?: Theme;
 }
 
@@ -30,4 +30,5 @@ const Icon: FC<IconProps> = props => {
   );
 };
 
+Icon.displayName = 'Icon';
 export default Icon;

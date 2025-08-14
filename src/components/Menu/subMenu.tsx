@@ -7,12 +7,14 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import { MenuContext } from './menu';
 import classNames from 'classnames';
 import { MenuItemProps } from './menuItem';
 import Icon from '../Icon';
+import Transition from '../Transition';
 
 interface BaseSubMenuProps {
   index: string;
@@ -29,6 +31,7 @@ const SubMenu: React.FC<SubMenuProps> = props => {
   const [open, setOpen] = useState(
     mode === 'vertical' ? defaultOpenSubMenus!.includes(index!) : false
   );
+  const subRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     if (open && !selectIdx.startsWith(index!)) {
@@ -60,20 +63,28 @@ const SubMenu: React.FC<SubMenuProps> = props => {
         );
       }
     });
-    return <ul className="sub-menu-item">{childElement}</ul>;
+    return (
+      <Transition
+        in={open}
+        timeout={300}
+        animation="zoom-in-top"
+        nodeRef={subRef}
+        unmountOnExit
+      >
+        <ul className="sub-menu-item" ref={subRef}>
+          {childElement}
+        </ul>
+      </Transition>
+    );
   };
 
-  let timer: any = null;
   const handleClick = (e: MouseEvent) => {
     e.preventDefault();
     setOpen(!open);
   };
   const handleHover = (e: MouseEvent, toggle: boolean) => {
-    clearTimeout(timer);
     e.preventDefault();
-    timer = setTimeout(() => {
-      setOpen(toggle);
-    }, 100);
+    setOpen(toggle);
   };
   const clickEvents =
     mode === 'vertical'
@@ -95,7 +106,7 @@ const SubMenu: React.FC<SubMenuProps> = props => {
           {title}
           <Icon icon="angle-down" className="arrow-icon" size="sm" />
         </div>
-        {open && renderChildren()}
+        {renderChildren()}
       </li>
     </>
   );
