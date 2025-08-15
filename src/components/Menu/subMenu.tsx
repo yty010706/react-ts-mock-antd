@@ -1,7 +1,6 @@
 import React, {
   cloneElement,
   FunctionComponent,
-  HTMLAttributes,
   MouseEvent,
   ReactElement,
   useContext,
@@ -16,22 +15,26 @@ import { MenuItemProps } from './menuItem';
 import Icon from '../Icon';
 import Transition from '../Transition';
 
-interface BaseSubMenuProps {
-  index: string;
-  title: string;
-  className: string;
+export interface SubMenuProps {
+  index?: string;
+  title?: string;
+  className?: string;
+  children?: React.ReactNode;
 }
-export type SubMenuProps = Partial<
-  BaseSubMenuProps & HTMLAttributes<HTMLLIElement>
->;
 
-const SubMenu: React.FC<SubMenuProps> = props => {
-  const { index, title, className, children } = props;
+export const SubMenu = ({
+  index,
+  title,
+  className,
+  children,
+}: SubMenuProps) => {
   const { selectIdx, mode, defaultOpenSubMenus } = useContext(MenuContext);
-  const [open, setOpen] = useState(
-    mode === 'vertical' ? defaultOpenSubMenus!.includes(index!) : false
-  );
+  const [open, setOpen] = useState(false);
   const subRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    setOpen(mode === 'vertical' && defaultOpenSubMenus!.includes(index!));
+  }, [defaultOpenSubMenus]);
 
   useEffect(() => {
     if (open && !selectIdx.startsWith(index!)) {
@@ -46,7 +49,7 @@ const SubMenu: React.FC<SubMenuProps> = props => {
       active: selectIdx.startsWith(index!),
       'sub-menu-open': open,
     });
-  }, [open]);
+  }, [selectIdx, open]);
 
   const renderChildren = () => {
     const childElement = React.Children.map(children, (child, idx) => {
@@ -99,6 +102,7 @@ const SubMenu: React.FC<SubMenuProps> = props => {
           onMouseLeave: (e: MouseEvent) => handleHover(e, false),
         }
       : {};
+
   return (
     <>
       <li key={index} className={classes} {...hoverEvents}>

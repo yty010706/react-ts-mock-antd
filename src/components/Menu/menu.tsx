@@ -11,13 +11,15 @@ import { MenuItemProps } from './menuItem';
 
 export type ModeType = 'horizontal' | 'vertical';
 type SelectCb = (selectIdx: string) => void;
-type BaseMenuProps = {
+export interface MenuProps {
   defaultIndex: string;
   mode?: ModeType;
-  onSelect?: SelectCb;
   defaultOpenSubMenus?: string[];
-};
-export type MenuProps = BaseMenuProps & React.HTMLAttributes<HTMLUListElement>;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+  onSelect?: SelectCb;
+}
 export interface MenuContextProps {
   selectIdx: string;
   onSelect?: SelectCb;
@@ -26,17 +28,16 @@ export interface MenuContextProps {
 }
 
 export const MenuContext = createContext<MenuContextProps>({ selectIdx: '0' });
-const Menu: React.FC<MenuProps> = props => {
-  const {
-    defaultIndex,
-    mode = 'horizontal',
-    onSelect,
-    className,
-    style,
-    children,
-    defaultOpenSubMenus = [],
-    ...restProps
-  } = props;
+export const Menu = ({
+  defaultIndex,
+  mode = 'horizontal',
+  onSelect,
+  className,
+  style,
+  children,
+  defaultOpenSubMenus = [],
+  ...props
+}: MenuProps) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const classes = useMemo(() => {
     return classNames('menu', className, {
@@ -74,7 +75,7 @@ const Menu: React.FC<MenuProps> = props => {
 
   return (
     <>
-      <ul className={classes} style={style} {...restProps}>
+      <ul className={classes} style={style} {...props}>
         <MenuContext value={passedContext}>{renderChildren()}</MenuContext>
       </ul>
     </>

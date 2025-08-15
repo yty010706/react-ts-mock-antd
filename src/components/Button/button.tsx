@@ -4,27 +4,36 @@ import React from 'react';
 export type ButtonSize = 'small' | 'large';
 export type ButtonType = 'primary' | 'danger' | 'link' | 'default' | 'dashed';
 
-interface BaseButtonProps {
-  className: string;
-  btnType: ButtonType;
-  size: ButtonSize;
-  children: React.ReactNode;
+export interface ButtonProps {
+  className?: string;
+  /** 按钮类型*/
+  btnType?: ButtonType;
+  /** 按钮尺寸*/
+  size?: ButtonSize;
+  children?: React.ReactNode;
+  /** 按钮禁用*/
+  disabled?: boolean;
+  /** link button的链接地址*/
+  href?: string;
+  onClick?: () => void;
 }
-export type ButtonProps = Partial<
-  BaseButtonProps &
-    React.ButtonHTMLAttributes<HTMLElement> &
-    React.LinkHTMLAttributes<HTMLElement>
->;
-const Button: React.FC<ButtonProps> = props => {
-  const {
-    btnType = 'default',
-    size,
-    disabled = false,
-    className,
-    children,
-    href,
-    ...restProps
-  } = props;
+
+/**
+ * 页面上常见的按钮元素，用于完成特定的交互。支持HTML Button和a链接形式，具备多种类型和尺寸
+ * ## 引入方式
+ * ```tsx
+ * import {Button} from 'mockAntD'
+ * <Button btnType='primary' size='large'>Button</Button>
+ */
+export const Button = ({
+  btnType = 'default',
+  size,
+  disabled = false,
+  className,
+  children,
+  href,
+  ...props
+}: ButtonProps) => {
   const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
@@ -33,13 +42,13 @@ const Button: React.FC<ButtonProps> = props => {
 
   if (btnType === 'link' && href)
     return (
-      <a href={href} className={classes} {...restProps}>
+      <a href={href} className={classes} {...props}>
         {children}
       </a>
     );
   else {
     return (
-      <button className={classes} disabled={disabled} {...restProps}>
+      <button className={classes} disabled={disabled} {...props}>
         {children}
       </button>
     );

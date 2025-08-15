@@ -2,15 +2,18 @@ import classNames from 'classnames';
 import { useContext } from 'react';
 import { MenuContext } from './menu';
 
-type BaseMenuItemProps = {
-  index: string;
-  disabled: boolean;
+export type MenuItemProps = {
+  index?: string;
+  disabled?: boolean;
+  children?: React.ReactNode;
+  className?: string;
 };
-export type MenuItemProps = Partial<
-  BaseMenuItemProps & React.HTMLAttributes<HTMLLIElement>
->;
-const MenuItem: React.FC<MenuItemProps> = props => {
-  const { index, children, disabled, className } = props;
+export const MenuItem = ({
+  index,
+  children,
+  disabled,
+  className,
+}: MenuItemProps) => {
   const { selectIdx, onSelect } = useContext(MenuContext);
   const classes = classNames('menu-item', className, {
     disabled: disabled,
