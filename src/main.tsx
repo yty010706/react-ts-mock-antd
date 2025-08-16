@@ -4,6 +4,7 @@ import TestAlert from './App/TestAlert';
 import TestMenu from './App/TestMenu';
 import TestTabs from './App/TestTabs';
 import TestIcon from './App/TestIcon';
+import TestInput from './App/TestInput';
 import './styles/index.scss';
 
-createRoot(document.getElementById('root')!).render(<TestMenu />);
+createRoot(document.getElementById('root')!).render(<TestInput />);

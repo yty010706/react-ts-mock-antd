@@ -1,0 +1,83 @@
+.input-wrapper {
+  display: flex;
+  position: relative;
+  width: 200px;
+
+  .input {
+    @include input-size();
+    width: 100%;
+    background-color: $input-bg;
+    border: $input-border-width solid $input-border-color;
+    box-shadow: none;
+    transition: $input-transition;
+
+    &:hover {
+      border-color: $input-focus-border-color;
+    }
+
+    &:focus {
+      background-color: $input-focus-bg;
+      border: $input-border-width solid $input-focus-border-color;
+      color: $input-focus-color;
+      box-shadow: $input-focus-box-shadow;
+      outline: none;
+
+      & .error {
+        box-shadow: $input-focus-box-shadow-error;
+      }
+    }
+
+    &[disabled],
+    &.disabled {
+      background-color: $input-disabled-bg;
+      border-color: $input-border-color;
+      cursor: not-allowed;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      &:hover {
+        border-color: $input-border-color;
+      }
+
+      >* {
+        pointer-events: none;
+      }
+    }
+
+    &::placeholder {
+      color: $input-placeholder-color;
+    }
+  }
+
+  .input-icon {
+    padding-left: $input-icon-padding-x;
+  }
+
+  .input-sm {
+    @include input-size($input-padding-y-sm, $input-padding-x-sm, $input-font-size-sm, $input-border-radius-sm);
+  }
+
+  .input-lg {
+    @include input-size($input-padding-y-lg, $input-padding-x-lg, $input-font-size-lg, $input-border-radius-lg)
+  }
+
+  .input-icon-sm {
+    padding-left: $input-icon-padding-x;
+  }
+
+  .input-icon-lg {
+    padding-left: $input-icon-padding-x;
+  }
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    transform: $input-icon-translate-x;
+    color: $input-placeholder-color;
+  }
+}

@@ -260,19 +260,19 @@
     $tabs-content-padding-x: 1rem !default;
 
     //input
-    $input-padding-y: $btn-padding-y !default;
-    $input-padding-x: $btn-padding-x !default;
+    $input-padding-y: .4rem !default;
+    $input-padding-x: .7rem !default;
     $input-font-family: $btn-font-family !default;
     $input-font-size: $btn-font-size !default;
     $input-font-weight: $font-weight-base !default;
     $input-line-height: $btn-line-height !default;
 
-    $input-padding-y-sm: $btn-padding-y-sm !default;
-    $input-padding-x-sm: $btn-padding-x-sm !default;
+    $input-padding-y-sm: .3rem !default;
+    $input-padding-x-sm: .6rem !default;
     $input-font-size-sm: $btn-font-size-sm !default;
 
-    $input-padding-y-lg: $btn-padding-y-lg !default;
-    $input-padding-x-lg: $btn-padding-x-lg !default;
+    $input-padding-y-lg: .5rem !default;
+    $input-padding-x-lg: .8rem !default;
     $input-font-size-lg: $btn-font-size-lg !default;
 
     $input-bg: $white !default;
@@ -289,10 +289,10 @@
     $input-border-radius-sm: $border-radius-sm !default;
 
     $input-focus-bg: $input-bg !default;
-    $input-focus-border-color: lighten($primary, 25%) !default;
-    $input-focus-width: .2rem !default;
+    $input-focus-border-color: lighten($primary, 15%) !default;
+    $input-focus-width: .125rem !default;
     $input-focus-color: $input-color !default;
-    $input-focus-shadow-color: rgba($primary, .25) !default;
+    $input-focus-shadow-color: rgba(5, 145, 255, 0.1) !default;
     $input-focus-shadow-error-color: rgba($danger, .25) !default;
     $input-focus-box-shadow: 0 0 0 $input-focus-width $input-focus-shadow-color !default;
     $input-focus-box-shadow-error: 0 0 0 $input-focus-width $input-focus-shadow-error-color !default;
@@ -302,8 +302,10 @@
 
     $input-height-border: $input-border-width * 2 !default;
 
-
     $input-transition: border-color .3s ease-in-out, box-shadow .3s ease-in-out !default;
+
+    $input-icon-padding-x: 1.5rem !default;
+    $input-icon-translate-x: translateX(.2rem) !default;
 
     $input-group-addon-color: $input-color !default;
     $input-group-addon-bg: $gray-200 !default;
