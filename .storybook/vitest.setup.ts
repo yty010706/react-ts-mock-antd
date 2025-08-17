@@ -1,6 +1,5 @@
 import * as a11yAddonAnnotations from '@storybook/addon-a11y/preview';
 import { setProjectAnnotations } from '@storybook/react-vite';
-import * as docsAnnotations from '@storybook/addon-docs/preview';
 import * as projectAnnotations from './preview';
 
 // This is an important step to apply the right configuration when testing your stories.
@@ -8,5 +7,4 @@ import * as projectAnnotations from './preview';
 setProjectAnnotations([
   a11yAddonAnnotations,
   projectAnnotations,
-  docsAnnotations,
 ]);

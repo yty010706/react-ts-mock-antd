@@ -260,19 +260,19 @@
     $tabs-content-padding-x: 1rem !default;
 
     //input
-    $input-padding-y: .4rem !default;
-    $input-padding-x: .7rem !default;
+    $input-padding-y: .3rem !default;
+    $input-padding-x: .6rem !default;
     $input-font-family: $btn-font-family !default;
     $input-font-size: $btn-font-size !default;
     $input-font-weight: $font-weight-base !default;
     $input-line-height: $btn-line-height !default;
 
-    $input-padding-y-sm: .3rem !default;
-    $input-padding-x-sm: .6rem !default;
+    $input-padding-y-sm: .2rem !default;
+    $input-padding-x-sm: .5rem !default;
     $input-font-size-sm: $btn-font-size-sm !default;
 
-    $input-padding-y-lg: .5rem !default;
-    $input-padding-x-lg: .8rem !default;
+    $input-padding-y-lg: .4rem !default;
+    $input-padding-x-lg: .7rem !default;
     $input-font-size-lg: $btn-font-size-lg !default;
 
     $input-bg: $white !default;
@@ -302,10 +302,11 @@
 
     $input-height-border: $input-border-width * 2 !default;
 
-    $input-transition: border-color .3s ease-in-out, box-shadow .3s ease-in-out !default;
+    $input-transition: border-color .2s ease-in-out, box-shadow .2s ease-in-out !default;
 
     $input-icon-padding-x: 1.5rem !default;
     $input-icon-translate-x: translateX(.2rem) !default;
+    $input-icon-font-size: $btn-font-size !default;
 
     $input-group-addon-color: $input-color !default;
     $input-group-addon-bg: $gray-200 !default;

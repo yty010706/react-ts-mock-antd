@@ -252,6 +252,9 @@
   $line-height: $input-line-height,
   $font-family: $input-font-family) {
   padding: $padding-y $padding-x;
-  font: $font-weight $font-size/$line-height $font-family;
+  font-weight: $font-weight;
+  font-size: $font-size;
+  font-family: $font-family;
+  line-height: $line-height;
   border-radius: $border-radius;
 }
