@@ -1,4 +1,4 @@
-import { ChangeEvent, useMemo } from 'react';
+import React, { ChangeEvent, useMemo } from 'react';
 import classNames from 'classnames';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import Icon from '../Icon';
@@ -22,13 +22,6 @@ interface InputProps
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-/**
- * 页面上常见的按钮元素，用于完成特定的交互。支持HTML Button和a链接形式，具备多种类型和尺寸
- * ## 引入方式
- * ```tsx
- * import {Button} from 'mockAntD'
- * <Button btnType='primary' size='large'>Button</Button>
- */
 const Input: React.FC<InputProps> = ({
   size,
   disabled = false,
@@ -48,11 +41,11 @@ const Input: React.FC<InputProps> = ({
       'input-has-prefix': prefix,
       'input-has-suffix': suffix,
     });
-  }, [size, icon, disabled, className]);
+  }, [size, icon, disabled, prefix, suffix, className]);
 
   return (
     <div className="input-wrapper">
-      {prefix && <div className="input-prefix-wrapper">{prefix}</div>}
+      {prefix && <div className="input-prefix">{prefix}</div>}
       {icon && (
         <div className="icon-wrapper">
           <Icon icon={icon} className="icon" />
@@ -65,6 +58,7 @@ const Input: React.FC<InputProps> = ({
         className={classes}
         onChange={onChange}
       />
+      {suffix && <div className="input-suffix">{suffix}</div>}
     </div>
   );
 };

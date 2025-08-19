@@ -308,9 +308,8 @@
     $input-icon-translate-x: translateX(.2rem) !default;
     $input-icon-font-size: $btn-font-size !default;
 
-    $input-group-addon-color: $input-color !default;
-    $input-group-addon-bg: $gray-200 !default;
-    $input-group-addon-border-color: $input-border-color !default;
+    $input-prefix-suffix-color: $input-color !default;
+    $input-prefix-suffix-bg: $gray-200 !default;
 
     // Progress bars
 

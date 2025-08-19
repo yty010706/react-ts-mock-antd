@@ -3,6 +3,8 @@ import Input from './input';
 import { fn } from 'storybook/test';
 
 import { Meta, StoryObj } from '@storybook/react';
+import Icon from '../Icon';
+import Button from '../Button';
 
 const meta = {
   title: 'Input',
@@ -47,9 +49,10 @@ export const IconInput: Story = {
   },
 };
 
-export const PrefixInput: Story = {
-  name: '带有前缀的Input',
+export const PrefixSuffixInput: Story = {
+  name: '带有前后缀的Input',
   args: {
     prefix: 'www.',
+    suffix: '.com',
   },
 };

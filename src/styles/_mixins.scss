@@ -258,3 +258,26 @@
   line-height: $line-height;
   border-radius: $border-radius;
 }
+
+@mixin input-prefix-suffix($prefix-or-suffix: 'prefix') {
+  display: flex;
+  align-items: center;
+  padding: $input-padding-y $input-padding-x;
+  border: $input-border-width solid $input-border-color;
+  background-color: $input-prefix-suffix-bg;
+  color: $input-prefix-suffix-color;
+  white-space: nowrap;
+  cursor: default;
+
+  @if $prefix-or-suffix =='prefix' {
+    border-right: 0;
+    border-top-left-radius: $input-border-radius;
+    border-bottom-left-radius: $input-border-radius;
+  }
+
+  @else {
+    border-left: 0;
+    border-top-right-radius: $input-border-radius;
+    border-bottom-right-radius: $input-border-radius;
+  }
+}
