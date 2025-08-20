@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import Icon from '../Icon';
 
-interface InputProps
+export interface InputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLElement>,
     'size' | 'prefix' | 'suffix'
@@ -42,10 +42,12 @@ const Input: React.FC<InputProps> = ({
       'input-has-suffix': suffix,
     });
   }, [size, icon, disabled, prefix, suffix, className]);
+  const prefixClass = size ? `input-prefix-${size}` : 'input-prefix';
+  const suffixClass = size ? `input-suffix-${size}` : 'input-suffix';
 
   return (
     <div className="input-wrapper">
-      {prefix && <div className="input-prefix">{prefix}</div>}
+      {prefix && <div className={prefixClass}>{prefix}</div>}
       {icon && (
         <div className="icon-wrapper">
           <Icon icon={icon} className="icon" />
@@ -58,7 +60,7 @@ const Input: React.FC<InputProps> = ({
         className={classes}
         onChange={onChange}
       />
-      {suffix && <div className="input-suffix">{suffix}</div>}
+      {suffix && <div className={suffixClass}>{suffix}</div>}
     </div>
   );
 };

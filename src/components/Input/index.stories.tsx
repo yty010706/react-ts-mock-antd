@@ -3,8 +3,6 @@ import Input from './input';
 import { fn } from 'storybook/test';
 
 import { Meta, StoryObj } from '@storybook/react';
-import Icon from '../Icon';
-import Button from '../Button';
 
 const meta = {
   title: 'Input',

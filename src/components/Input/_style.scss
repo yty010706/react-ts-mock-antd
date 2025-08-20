@@ -1,7 +1,6 @@
 .input-wrapper {
   display: flex;
   position: relative;
-  width: 300px;
   height: 100%;
 
   .input {
@@ -90,7 +89,23 @@
     @include input-prefix-suffix('prefix')
   }
 
+  .input-prefix-sm {
+    @include input-prefix-suffix('prefix', 'sm')
+  }
+
+  .input-prefix-lg {
+    @include input-prefix-suffix('prefix', 'lg')
+  }
+
   .input-suffix {
     @include input-prefix-suffix('suffix')
+  }
+
+  .input-suffix-sm {
+    @include input-prefix-suffix('suffix', 'sm')
+  }
+
+  .input-suffix-lg {
+    @include input-prefix-suffix('suffix', 'lg')
   }
 }

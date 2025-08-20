@@ -259,10 +259,9 @@
   border-radius: $border-radius;
 }
 
-@mixin input-prefix-suffix($prefix-or-suffix: 'prefix') {
+@mixin input-prefix-suffix($prefix-or-suffix: 'prefix', $size: 'default') {
   display: flex;
   align-items: center;
-  padding: $input-padding-y $input-padding-x;
   border: $input-border-width solid $input-border-color;
   background-color: $input-prefix-suffix-bg;
   color: $input-prefix-suffix-color;
@@ -279,5 +278,17 @@
     border-left: 0;
     border-top-right-radius: $input-border-radius;
     border-bottom-right-radius: $input-border-radius;
+  }
+
+  @if $size=='default' {
+    padding: $input-padding-y $input-padding-x;
+  }
+
+  @else if $size=='sm' {
+    padding: $input-padding-y-sm $input-padding-x-sm;
+  }
+
+  @else {
+    padding: $input-padding-y-lg $input-padding-x-lg;
   }
 }
