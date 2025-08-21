@@ -10,7 +10,7 @@ const TestAutoComplete = () => {
       <AutoComplete
         icon="search"
         onSearch={handleSearch}
-        placeholder="请输入"
+        renderOptions={item => <div>{item}</div>}
       />
     </>
   );

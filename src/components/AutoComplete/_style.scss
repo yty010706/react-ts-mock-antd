@@ -2,25 +2,27 @@
   position: relative;
 
   .auto-complete-suggestions {
+    @include flex-center(column);
     position: absolute;
     top: 100%; // 位于输入框下方
-    left: 0;
-    right: 0;
+    width: 100%;
     background: white;
-    border: 1px solid #ccc;
+    border: $input-border-width solid $input-border-color;
     margin: 0;
-    max-height: 200px;
-    padding: .5rem .2rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    max-height: $auto-max-height;
+    padding: $auto-padding;
+    border-radius: $auto-item-border-radius;
+    box-shadow: $auto-box-shadow;
     list-style: none;
     z-index: 1000;
     overflow-y: scroll;
 
     .auto-complete-suggestions-item {
-      border-radius: .2rem;
-      padding: .3rem .7rem;
+      width: 100%;
+      padding: $auto-item-padding;
+      border-radius: $auto-item-border-radius;
       cursor: pointer;
-      transition: background-color .3s ease-in-out;
+      transition: $auto-item-transition;
 
       &:hover {
         background-color: $gray-300;

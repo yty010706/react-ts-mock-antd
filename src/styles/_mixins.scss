@@ -37,13 +37,6 @@
   }
 }
 
-// 文字超出省略号
-@mixin ellipse() {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 // 水平垂直Menu
 @mixin menu($horizontal: true) {
   @if $horizontal {
@@ -259,6 +252,7 @@
   border-radius: $border-radius;
 }
 
+// input的前后缀样式
 @mixin input-prefix-suffix($prefix-or-suffix: 'prefix', $size: 'default') {
   display: flex;
   align-items: center;
@@ -291,4 +285,18 @@
   @else {
     padding: $input-padding-y-lg $input-padding-x-lg;
   }
+}
+
+// 文字超出省略号
+@mixin ellipse() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin flex-center($flex-direction: row) {
+  display: flex;
+  flex-direction: $flex-direction;
+  justify-content: center;
+  align-items: center;
 }
