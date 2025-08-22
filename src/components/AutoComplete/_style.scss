@@ -2,7 +2,6 @@
   position: relative;
 
   .auto-complete-suggestions {
-    @include flex-center(column);
     position: absolute;
     top: 100%; // 位于输入框下方
     width: 100%;
@@ -24,9 +23,13 @@
       cursor: pointer;
       transition: $auto-item-transition;
 
-      &:hover {
-        background-color: $gray-300;
-      }
+      // &:hover {
+      //   background-color: $gray-300;
+      // }
+    }
+
+    .active {
+      background-color: $gray-300;
     }
   }
 }

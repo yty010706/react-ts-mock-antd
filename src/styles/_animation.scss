@@ -3,4 +3,4 @@
 @include zoom-in-animation('left', scaleX(0), scaleX(1), left center);
 @include zoom-in-animation('right', scaleX(0), scaleX(1), right center);
 
-@include zoom-out-animation('right', scaleX(0), right center);
+@include zoom-out-animation('top', scaleY(0), center top);

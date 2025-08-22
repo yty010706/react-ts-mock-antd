@@ -1,11 +1,5 @@
 import classNames from 'classnames';
-import {
-  ReactNode,
-  useState,
-  FC,
-  ReactElement,
-  FunctionComponent,
-} from 'react';
+import { ReactNode, useState, ReactElement, FunctionComponent } from 'react';
 import Icon, { IconProps } from '../Icon/icon';
 import Transition from '../Transition';
 
@@ -17,17 +11,18 @@ interface BaseAlertProps {
   onClose: () => void;
   closable: boolean;
   closeIcon: ReactNode;
+  style?: React.CSSProperties;
 }
 export type AlertProps = Partial<BaseAlertProps>;
-const Alert: FC<AlertProps> = props => {
-  const {
-    title = 'this is title',
-    description = '',
-    type = 'default',
-    closable = true,
-    onClose,
-    closeIcon,
-  } = props;
+const Alert = ({
+  title = 'this is title',
+  description = '',
+  type = 'default',
+  closable = true,
+  onClose,
+  closeIcon,
+  ...props
+}: AlertProps) => {
   const [hide, setHide] = useState(false);
 
   const alertClasses = classNames('alert', {
@@ -51,8 +46,8 @@ const Alert: FC<AlertProps> = props => {
   };
 
   return (
-    <Transition in={hide} timeout={300} animation="zoom-out-right">
-      <div className={alertClasses} data-testid="alert">
+    <Transition in={hide} timeout={300} animation="zoom-out-top">
+      <div className={alertClasses} data-testid="alert" {...props}>
         <div className={alertTitleClasses}>{title}</div>
         {description && <div className="alert-description">{description}</div>}
         {closable && (

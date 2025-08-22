@@ -6,9 +6,10 @@ import TestTabs from './App/TestTabs';
 import TestIcon from './App/TestIcon';
 import TestInput from './App/TestInput';
 import TestAutoComplete from './App/TestAutoComplete';
+import TestUpload from './App/TestUpload';
 import './styles/index.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
-createRoot(document.getElementById('root')!).render(<TestAutoComplete />);
+createRoot(document.getElementById('root')!).render(<TestUpload />);

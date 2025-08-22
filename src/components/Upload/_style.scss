@@ -1,0 +1,68 @@
+$success-color: #26a18f;
+$error-color: #e74c3c;
+$uploading-color: #236ef0;
+
+@mixin item-color($color) {
+  border-left: 4px solid $color;
+  color: $color;
+}
+
+.upload {
+  margin-left: 5px;
+  margin-top: 5px;
+
+  .upload-icon {
+    margin-right: 5px;
+    font-size: .85rem;
+  }
+}
+
+.upload-list {
+  padding: 0;
+  margin-top: 10px;
+
+  .upload-list-item-success {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 8px;
+    max-width: 200px;
+    transition: all .5s ease;
+    @include item-color($success-color);
+    cursor: default;
+
+    .close-icon {
+      display: none;
+      color: $gray-500;
+      font-size: 12px;
+      transition: color .3s ease;
+
+      &:hover {
+        color: $gray-700;
+        cursor: pointer;
+      }
+    }
+
+    &:hover {
+      background-color: $gray-200;
+
+      .close-icon {
+        display: inline;
+      }
+
+      .status-icon {
+        display: none;
+      }
+    }
+  }
+
+  .upload-list-item-error {
+    @extend .upload-list-item-success;
+    @include item-color($error-color)
+  }
+
+  .upload-list-item-uploading {
+    @extend .upload-list-item-success;
+    @include item-color($uploading-color)
+  }
+}

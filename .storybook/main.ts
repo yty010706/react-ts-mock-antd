@@ -13,13 +13,5 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
-  // core: {
-  //   builder: {
-  //     name: 'webpack5',
-  //     options: {
-  //       lazyCompilation: true,
-  //     },
-  //   },
-  // },
 };
 export default config;

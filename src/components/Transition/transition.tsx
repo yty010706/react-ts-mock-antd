@@ -7,14 +7,15 @@ type AnimationName =
   | 'zoom-in-bottom'
   | 'zoom-in-left'
   | 'zoom-in-right'
-  | 'zoom-out-right';
+  | 'zoom-out-top';
 export type TransitionProps = CSSTransitionProps<HTMLElement> & {
   animation?: AnimationName;
   children: React.ReactNode;
 };
 const Transition: FC<TransitionProps> = props => {
   const { animation, classNames, children, wrapper, ...restProps } = props;
-  const nodeRef = useRef(null);
+  const nodeRef = useRef<HTMLDivElement>(null);
+  console.log(props.in);
 
   return (
     <CSSTransition

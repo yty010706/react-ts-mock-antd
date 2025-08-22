@@ -8,12 +8,14 @@
     "build": "tsc -b && vite build",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "server": "json-server --watch ./mock/db.json"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.0.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
     "@fortawesome/react-fontawesome": "^0.2.3",
+    "axios": "^1.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-transition-group": "^4.4.5"
@@ -47,6 +49,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
+    "json-server": "^1.0.0-beta.3",
     "mockjs": "^1.1.0",
     "playwright": "^1.54.2",
     "sass": "^1.90.0",

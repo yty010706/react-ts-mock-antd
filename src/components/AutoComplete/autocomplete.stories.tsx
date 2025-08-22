@@ -31,9 +31,6 @@ const handleSearch = (query: string) => {
 };
 // 搜索逻辑
 const handleSearchAsync = (query: string) => {
-  // return Promise.resolve(
-  //   generateOptions(data.filter(item => item.name.includes(query)))
-  // );
   return fetch('/api/userList')
     .then(res => res.json())
     .then(res => {
