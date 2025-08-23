@@ -15,7 +15,6 @@ export type TransitionProps = CSSTransitionProps<HTMLElement> & {
 const Transition: FC<TransitionProps> = props => {
   const { animation, classNames, children, wrapper, ...restProps } = props;
   const nodeRef = useRef<HTMLDivElement>(null);
-  console.log(props.in);
 
   return (
     <CSSTransition

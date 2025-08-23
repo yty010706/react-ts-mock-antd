@@ -1,8 +1,9 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, CSSProperties, ReactNode, useRef, useState } from 'react';
 import axios, { AxiosProgressEvent } from 'axios';
 import Button from '../Button';
 import Icon from '../Icon';
 import UploadList from './uploadList';
+import { Dragger } from './dragger';
 
 type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error';
 export interface UploadFile {
@@ -19,32 +20,60 @@ export interface UploadFile {
 export interface UploadProps {
   /**上传的地址 */
   action: string;
+  /** 默认上传文件列表 */
+  defaultFileList?: UploadFile[];
   /** 上传前对文件校验或处理 */
   beforeUpload?: (file: File) => boolean | Promise<File>;
   /** 上传中的回调 */
   onProgress?: (percentage: number, file: File) => void;
   /** 上传状态变更回调 */
-  onChange?: (file: File) => void;
+  onChange?: (file: UploadFile) => void;
   /** 上传成功回调 */
-  onSuccess?: (data: any, file: File) => void;
+  onSuccess?: (data: any, file: UploadFile) => void;
   /** 上传失败回调 */
-  onError?: (err: any, file: File) => void;
+  onError?: (err: any, file: UploadFile) => void;
   /** 删除已上传文件回调 */
-  onRemove?: (file: File) => void;
+  onRemove?: (file: UploadFile) => void;
   /** 批量上传 */
   multiple?: boolean;
+  /** 限制可以上传的文件 */
+  accept?: string;
+  /** 上传文件的键名 */
+  name?: string;
+  /** 自定义请求头 */
+  headers?: { [key: string]: any };
+  /** 自定义上传数据 */
+  data?: { [key: string]: any };
+  /** 是否携带cookie */
+  withCredentials?: boolean;
+  /** 支持拖拽上传 */
+  drag?: boolean;
+  children?: ReactNode;
+  style?: CSSProperties;
+  className?: string;
 }
 export default function Upload({
   action,
+  defaultFileList,
   beforeUpload,
   onProgress,
   onChange,
   onSuccess,
   onError,
   onRemove,
-  multiple,
+  multiple = false,
+  accept,
+  name,
+  headers,
+  data,
+  withCredentials = false,
+  drag = false,
+  children,
+  style,
 }: UploadProps) {
-  const [uploadFileList, setUploadFileList] = useState<UploadFile[]>([]);
+  const [uploadFileList, setUploadFileList] = useState<UploadFile[]>(
+    defaultFileList || []
+  );
 
   const inputRef = useRef<HTMLInputElement>(null);
   const selectFiles = (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,12 +108,19 @@ export default function Upload({
 
   const postData = (file: File) => {
     const newFile = createUploadFile(file);
-    const data = new FormData();
-    data.append(file.name, file);
+    const formData = new FormData();
+    formData.append(name || 'uploadFile', file);
+    if (data) {
+      Object.keys(data).forEach(key => {
+        formData.append(key, data[key]);
+      });
+    }
+
     axios
-      .post(action, data, {
+      .post(action, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          ...headers,
         },
         onUploadProgress: (e: AxiosProgressEvent) => {
           let percentage = Math.round((e.loaded * 100) / e.total!) || 0;
@@ -93,10 +129,11 @@ export default function Upload({
             onProgress?.(percentage, file);
           }
         },
+        withCredentials,
       })
       .then(res => {
-        onChange?.(file);
-        onSuccess?.(res.data, file);
+        onChange?.(newFile);
+        onSuccess?.(res.data, newFile);
         updateUploadFile(newFile, {
           percentage: 100,
           status: 'success',
@@ -104,8 +141,8 @@ export default function Upload({
         });
       })
       .catch(err => {
-        onChange?.(file);
-        onError?.(err, file);
+        onChange?.(newFile);
+        onError?.(err, newFile);
         updateUploadFile(newFile, {
           percentage: 100,
           status: 'error',
@@ -123,7 +160,7 @@ export default function Upload({
       percentage: 0,
       raw: file,
     };
-    setUploadFileList([...uploadFileList, newFile]);
+    setUploadFileList(prevList => [...prevList, newFile]);
 
     return newFile;
   };
@@ -135,7 +172,8 @@ export default function Upload({
     setUploadFileList(prevList => {
       return prevList.map(prev => {
         if (prev.uid === file.uid) {
-          return { ...prev, ...uploadProps };
+          file = { ...file, ...uploadProps };
+          return file;
         }
         return prev;
       });
@@ -148,22 +186,22 @@ export default function Upload({
   const removeUploadFile = (file: UploadFile) => {
     setUploadFileList(uploadFileList.filter(f => f.uid !== file.uid));
     axios.delete(`${action}/${file.uid}`).then(_ => {
-      onRemove?.(file.raw!);
+      onRemove?.(file);
     });
   };
 
   return (
-    <div className="upload">
-      <Button btnType="default" onClick={handleClick}>
-        <Icon icon="upload" className="upload-icon" />
-        上传文件
-      </Button>
+    <div className="upload" style={style} data-testid="test-upload">
+      <div className="upload-input" onClick={handleClick}>
+        {drag ? <Dragger onFile={uploadFiles}>{children}</Dragger> : children}
+      </div>
       <input
         type="file"
         style={{ display: 'none' }}
         ref={inputRef}
         onChange={selectFiles}
         multiple={multiple}
+        accept={accept}
       />
       <UploadList files={uploadFileList} removeUploadFile={removeUploadFile} />
     </div>

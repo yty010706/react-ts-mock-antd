@@ -1,33 +1,17 @@
 import Icon from '../Icon';
-import Transition from '../Transition';
+import Progress from './progress';
 import { UploadFile } from './upload';
 
-interface UploadListProps {
+export interface UploadListProps {
   files: UploadFile[];
   removeUploadFile: (file: UploadFile) => void;
 }
 
-const UploadItem = ({ file, removeUploadFile }: any) => {
-  return (
-    <Transition in={file.percentage > 0} timeout={300} animation="zoom-in-top">
-      <li
-        className={`upload-list-item-${
-          file.status === 'ready' ? 'uploading' : file.status
-        }`}
-        key={file.uid}
-      >
-        <span> {file.name}</span>
-        <span>
-          <Icon
-            icon="close"
-            className="close-icon"
-            onClick={() => removeUploadFile(file)}
-          />
-          <Icon icon="check" className="status-icon" />
-        </span>
-      </li>
-    </Transition>
-  );
+const statusIconMap = {
+  ready: <Icon icon="spinner" spin />,
+  uploading: <Icon icon="spinner" spin />,
+  success: <Icon icon="check" />,
+  error: <Icon icon="exclamation-circle" />,
 };
 export default function UploadList({
   files,
@@ -36,7 +20,19 @@ export default function UploadList({
   return (
     <ul className="upload-list">
       {files.map(file => (
-        <UploadItem file={file} removeUploadFile={removeUploadFile} />
+        <li className={`upload-list-item-${file.status}`} key={file.uid}>
+          <div className="item-content">
+            <span> {file.name}</span>
+            <span className="close-icon" onClick={() => removeUploadFile(file)}>
+              <Icon icon="close" />
+            </span>
+            <span className="status-icon">{statusIconMap[file.status!]}</span>
+          </div>
+
+          {(file.status === 'uploading' || file.status === 'ready') && (
+            <Progress percent={file.percentage || 0} strokeHeight={12} />
+          )}
+        </li>
       ))}
     </ul>
   );

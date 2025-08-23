@@ -1,0 +1,56 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .form-row {
+    display: flex;
+    flex-direction: row;
+
+    &.form-row-no-label {
+      flex-direction: row-reverse;
+    }
+
+    .form-item-label {
+      flex-basis: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 30px;
+
+      >label {
+        margin-bottom: 0;
+      }
+    }
+
+    &.isRequired {
+      .form-item-label::before {
+        content: '*';
+        color: red;
+        margin-right: 5px;
+      }
+    }
+
+    &.isError {
+      .form-item input {
+        border: 1px solid red;
+
+        &:focus {
+          box-shadow: $input-focus-box-shadow-error;
+        }
+      }
+    }
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      flex-basis: 70%;
+
+      .error-msg {
+        position: absolute;
+        color: red;
+        font-size: 11px;
+      }
+    }
+  }
+}

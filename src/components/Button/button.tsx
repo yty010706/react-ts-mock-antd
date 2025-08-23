@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React from 'react';
+import React, { CSSProperties, ReactNode } from 'react';
 
 export type ButtonSize = 'small' | 'large';
 export type ButtonType = 'primary' | 'danger' | 'link' | 'default' | 'dashed';
@@ -15,6 +15,9 @@ export interface ButtonProps {
   disabled?: boolean;
   /** link button的链接地址*/
   href?: string;
+  /** 图标 */
+  icon?: ReactNode;
+  style?: CSSProperties;
   onClick?: () => void;
 }
 
@@ -32,6 +35,7 @@ export const Button = ({
   className,
   children,
   href,
+  icon,
   ...props
 }: ButtonProps) => {
   const classes = classNames('btn', className, {
@@ -49,6 +53,7 @@ export const Button = ({
   else {
     return (
       <button className={classes} disabled={disabled} {...props}>
+        {icon && <span className="btn-icon">{icon}</span>}
         {children}
       </button>
     );
