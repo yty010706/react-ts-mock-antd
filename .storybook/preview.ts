@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react-vite';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import '../src/styles/index.scss';
+
 library.add(fas);
 
 const preview: Preview = {
@@ -12,8 +13,10 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    a11y: {
-      test: 'todo',
+    options: {
+      storySort: {
+        order: ['Welcome', '*'],
+      },
     },
   },
 };
