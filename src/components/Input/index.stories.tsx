@@ -2,7 +2,7 @@ import Input from './input';
 
 import { fn } from 'storybook/test';
 
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 
 const meta = {
   title: 'Input',

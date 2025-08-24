@@ -1,21 +1,20 @@
 import AutoComplete, { OptionType } from './autocomplete';
 import { fn } from 'storybook/test';
-import { Meta, StoryObj } from '@storybook/react';
-import Mock from 'mockjs';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { faker } from '@faker-js/faker';
 
 interface ValueProp {
   name: string;
   age: number;
 }
-
-const data: ValueProp[] = Mock.mock({
-  'data|5-10': [
-    {
-      name: '@string("alphaNumeric",5,10)',
-      'age|1-100': 1,
-    },
-  ],
-}).data;
+const generateMockData = () => {
+  const count = faker.number.int({ min: 5, max: 10 });
+  return Array.from({ length: count }, () => ({
+    name: faker.string.alphanumeric({ length: { min: 5, max: 10 } }),
+    age: faker.number.int({ min: 1, max: 100 }),
+  }));
+};
+const data: ValueProp[] = generateMockData();
 const generateOptions = (data: ValueProp[]) => {
   const options: OptionType[] = data.map(item => ({
     value: item.name,

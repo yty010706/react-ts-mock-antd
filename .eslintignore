@@ -36,3 +36,5 @@ yarn-error.log*
 # 其他
 coverage/
 .DS_Store
+
+src/App/

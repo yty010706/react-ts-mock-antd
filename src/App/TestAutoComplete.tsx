@@ -1,21 +1,21 @@
 import AutoComplete, {
   OptionType,
 } from '@/components/AutoComplete/autocomplete';
-import Mock from 'mockjs';
+import { faker } from '@faker-js/faker';
 
 interface ValueProp {
   name: string;
   age: number;
 }
 
-const data: ValueProp[] = Mock.mock({
-  'data|5-10': [
-    {
-      name: '@string("alphaNumeric",5,10)',
-      'age|1-100': 1,
-    },
-  ],
-}).data;
+const generateMockData = () => {
+  const count = faker.number.int({ min: 5, max: 10 });
+  return Array.from({ length: count }, () => ({
+    name: faker.string.alphanumeric({ length: { min: 5, max: 10 } }),
+    age: faker.number.int({ min: 1, max: 100 }),
+  }));
+};
+const data: ValueProp[] = generateMockData();
 
 const TestAutoComplete = () => {
   const generateOptions = (data: ValueProp[]) => {
@@ -26,11 +26,6 @@ const TestAutoComplete = () => {
     return options;
   };
 
-  const handleSearch = (query: string) => {
-    return Promise.resolve(
-      generateOptions(data.filter(item => item.name.includes(query)))
-    );
-  };
   // 搜索逻辑
   const handleSearchAsync = (query: string) => {
     return fetch('/api/userList')
@@ -60,6 +55,7 @@ const TestAutoComplete = () => {
         icon="search"
         onSearch={handleSearchAsync}
         options={generateOptions(data)}
+        renderOptions={renderOptions}
       />
     </>
   );

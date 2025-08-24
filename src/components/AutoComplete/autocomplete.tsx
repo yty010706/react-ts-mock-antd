@@ -36,7 +36,7 @@ const AutoComplete = ({
   onSearch,
   onSelect,
   renderOptions,
-  value,
+  value = '',
   style = { width: 300, marginLeft: 10, marginTop: 10 },
   ...props
 }: AutoCompleteProps) => {

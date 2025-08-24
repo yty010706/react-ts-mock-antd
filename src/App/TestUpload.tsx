@@ -14,7 +14,7 @@ const defaultProps: UploadProps = {
   action: 'https://jsonplaceholder.typicode.com/posts',
   name: 'file',
   headers: { author: 'yty' },
-  onProgress: (percentage: Number) => {
+  onProgress: (percentage: number) => {
     console.log(percentage);
   },
   onSuccess: (res: any, file: UploadFile) => {

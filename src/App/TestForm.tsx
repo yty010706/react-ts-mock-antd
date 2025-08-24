@@ -1,7 +1,9 @@
-import Button from '@/components/Button';
 import Form from '@/components/Form';
-import Icon from '@/components/Icon';
-import Input from '@/components/Input';
+import React from 'react';
+
+const Input = React.lazy(() => import('@/components/Input'));
+const Button = React.lazy(() => import('@/components/Button'));
+const Icon = React.lazy(() => import('@/components/Icon'));
 
 const Item = Form.Item;
 export default function TestForm() {
@@ -30,7 +32,7 @@ export default function TestForm() {
               },
               ({ validateField }) => {
                 return {
-                  asyncValidator(_rule, _value) {
+                  asyncValidator() {
                     validateField!('confirm-pwd');
                     return Promise.resolve();
                   },

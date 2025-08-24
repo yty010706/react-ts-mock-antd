@@ -45,7 +45,7 @@ const Tabs: React.FC<TabProps> = props => {
         setContent(content);
       },
     };
-  }, [activeIndex]);
+  }, [activeIndex, onSelect]);
 
   const classes = classNames('tabs', className);
 

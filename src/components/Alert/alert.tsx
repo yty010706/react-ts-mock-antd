@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { ReactNode, useState, ReactElement, FunctionComponent } from 'react';
 import Icon, { IconProps } from '../Icon/icon';
-import Transition from '../Transition';
 
 type AlertType = 'success' | 'default' | 'danger' | 'warning';
 interface BaseAlertProps {
@@ -46,23 +45,27 @@ const Alert = ({
   };
 
   return (
-    <Transition in={hide} timeout={300} animation="zoom-out-top">
-      <div className={alertClasses} data-testid="alert" {...props}>
-        <div className={alertTitleClasses}>{title}</div>
-        {description && <div className="alert-description">{description}</div>}
-        {closable && (
-          <div
-            className="alert-close"
-            onClick={() => {
-              setHide(true);
-              onClose && onClose();
-            }}
-          >
-            {renderClose()}
-          </div>
-        )}
-      </div>
-    </Transition>
+    <>
+      {!hide && (
+        <div className={alertClasses} data-testid="alert" {...props}>
+          <div className={alertTitleClasses}>{title}</div>
+          {description && (
+            <div className="alert-description">{description}</div>
+          )}
+          {closable && (
+            <div
+              className="alert-close"
+              onClick={() => {
+                setHide(true);
+                onClose && onClose();
+              }}
+            >
+              {renderClose()}
+            </div>
+          )}
+        </div>
+      )}
+    </>
   );
 };
 

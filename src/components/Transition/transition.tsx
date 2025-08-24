@@ -13,7 +13,7 @@ export type TransitionProps = CSSTransitionProps<HTMLElement> & {
   children: React.ReactNode;
 };
 const Transition: FC<TransitionProps> = props => {
-  const { animation, classNames, children, wrapper, ...restProps } = props;
+  const { animation, classNames, children, ...restProps } = props;
   const nodeRef = useRef<HTMLDivElement>(null);
 
   return (

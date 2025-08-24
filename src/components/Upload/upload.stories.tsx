@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import Upload from './upload';
 import { fn } from 'storybook/test';
 import Button from '../Button';

@@ -1,5 +1,5 @@
 import Alert from './alert';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { AlertProps } from './alert';
 
 const titleAndDespProps: AlertProps = {
@@ -48,7 +48,7 @@ describe('Test Alert', () => {
     expect(desp?.textContent).toEqual(titleAndDespProps.description);
   });
 
-  it('Alert可关闭测试', () => {
+  it('Alert可关闭测试', async () => {
     const wrapper = render(<Alert {...closeProps} />);
     const alert = wrapper.getByTestId('alert');
     expect(alert).toBeInTheDocument();
@@ -56,7 +56,9 @@ describe('Test Alert', () => {
     const closeIcon = alert.querySelector('.alert-close');
     fireEvent.click(closeIcon!);
     expect(closeProps.onClose).toHaveBeenCalled();
-    expect(wrapper.queryByTestId('alert')).toBeNull();
+    await waitFor(() => {
+      expect(alert).not.toBeInTheDocument();
+    });
   });
 
   it('Alert无关闭Icon测试', () => {

@@ -1,7 +1,7 @@
 import Menu from './menu';
 import MenuItem from './menuItem';
 import SubMenu from './subMenu';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { fn } from 'storybook/test';
 const meta = {
   title: 'Menu',

@@ -1,7 +1,5 @@
 import { ChangeEvent, CSSProperties, ReactNode, useRef, useState } from 'react';
 import axios, { AxiosProgressEvent } from 'axios';
-import Button from '../Button';
-import Icon from '../Icon';
 import UploadList from './uploadList';
 import { Dragger } from './dragger';
 
@@ -13,8 +11,8 @@ export interface UploadFile {
   status?: UploadFileStatus;
   percentage?: number;
   raw?: File;
-  response?: any;
-  error?: any;
+  response?: unknown;
+  error?: unknown;
 }
 
 export interface UploadProps {
@@ -123,7 +121,7 @@ export default function Upload({
           ...headers,
         },
         onUploadProgress: (e: AxiosProgressEvent) => {
-          let percentage = Math.round((e.loaded * 100) / e.total!) || 0;
+          const percentage = Math.round((e.loaded * 100) / e.total!) || 0;
           if (percentage < 100) {
             updateUploadFile(newFile, { percentage, status: 'uploading' });
             onProgress?.(percentage, file);
@@ -185,7 +183,7 @@ export default function Upload({
 
   const removeUploadFile = (file: UploadFile) => {
     setUploadFileList(uploadFileList.filter(f => f.uid !== file.uid));
-    axios.delete(`${action}/${file.uid}`).then(_ => {
+    axios.delete(`${action}/${file.uid}`).then(() => {
       onRemove?.(file);
     });
   };
