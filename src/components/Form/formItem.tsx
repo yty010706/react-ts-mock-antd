@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 import { InputProps } from '../Input/input';
 import Transition from '../Transition';
-import { CustomRuleItem } from '@/hooks/useStore';
+import { CustomRuleItem } from '@/hooks/useForm';
 
 export interface FormItemProps {
   /** 表单项名称 */
@@ -42,14 +42,8 @@ export default function FormItem({
   className,
   children,
 }: FormItemProps) {
-  const {
-    fields,
-    addField,
-    updateField,
-    validateField,
-    initialValues,
-    getFieldValue,
-  } = useContext(FormContext);
+  const { fields, formFunc, initialValues } = useContext(FormContext);
+  const { addField, updateField, validateField } = formFunc;
   const validateError = useMemo(() => {
     return fields[name]?.errors.length > 0;
   }, [fields]);
@@ -57,9 +51,7 @@ export default function FormItem({
   const rowClasses = cls('form-row', className, {
     'form-row-no-label': !label,
     isRequired: rules.some(rule =>
-      typeof rule !== 'function'
-        ? rule.required
-        : rule({ getFieldValue, validateField }).required
+      typeof rule !== 'function' ? rule.required : rule(formFunc).required
     ),
     isError: validateError,
   });
