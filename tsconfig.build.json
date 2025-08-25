@@ -29,7 +29,7 @@
     "build",
     "coverage",
     "storybook-static",
-    "src/App/*",
+    "src/PageTest/*",
     "src/**/*.stories.tsx",
     "src/**/*.test.tsx"
   ]

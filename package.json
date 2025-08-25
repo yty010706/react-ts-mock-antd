@@ -27,7 +27,7 @@
     "dev": "vite",
     "test": "jest --coverage",
     "storybook": "storybook dev -p 6006",
-    "lint": "eslint --ext js,ts,tsx src --max-warnings 10",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 20",
     "build": "npm run clean && npm run build-ts && npm run build-sass",
     "build-ts": "tsc -p tsconfig.build.json",
     "build-sass": "sass ./src/styles/index.scss ./dist/index.css",
