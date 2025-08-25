@@ -13,31 +13,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install
         run: npm ci
 
-      - name: 调试 - 列出文件结构
+      - name: Debug - List file structure
         run: |
           pwd
           ls -la
-          find . -name "setupTests.ts"
           echo "=== src 目录结构 ==="
           tree src/ || ls -R src/
 
-      - name: 调试 - 查看 Jest 配置
+      - name: Debug - Show Jest configuration
         run: |
-          npx jest --showConfig | grep -i "rootDir\|setupFilesAfterEnv" # 查看Jest最终使用的配置
+          npx jest --showConfig | grep -i "rootDir\|setupFilesAfterEnv"
 
       - name: Clear Jest cache
         run: npx jest --clearCache || true
 
-      - name: Run tests
+      - name: Test
         run: npm run test
 
       - name: Lint

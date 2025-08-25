@@ -30,7 +30,7 @@
     "lint": "eslint --ext js,ts,tsx src --max-warnings 20",
     "build": "npm run clean && npm run build-ts && npm run build-sass",
     "build-ts": "tsc -p tsconfig.build.json",
-    "build-sass": "sass ./src/styles/index.scss ./dist/index.css",
+    "build-sass": "sass --quiet ./src/styles/index.scss ./dist/index.css",
     "build-doc": "storybook build",
     "clean": "rimraf ./dist",
     "prepublishOnly": "npm run test && npm run lint && npm run build",
