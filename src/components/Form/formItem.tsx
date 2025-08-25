@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { InputProps } from '../Input/input';
 import Transition from '../Transition';
-import { CustomRuleItem } from '@/Hooks/useForm';
+import { CustomRuleItem } from '@/hooks/useForm';
 import { FormContext } from '@/Contexts/FormContext';
 
 export interface FormItemProps {

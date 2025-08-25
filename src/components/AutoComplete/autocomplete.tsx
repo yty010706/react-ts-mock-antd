@@ -13,8 +13,8 @@ import {
 import Input from '../Input';
 import { InputProps } from '../Input/input';
 import Icon from '../Icon';
-import useDebounce from '@/Hooks/useDebounce';
-import useClickOutside from '@/Hooks/useClickOutside';
+import useDebounce from '@/hooks/useDebounce';
+import useClickOutside from '@/hooks/useClickOutside';
 
 export interface OptionType {
   /**
