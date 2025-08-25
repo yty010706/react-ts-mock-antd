@@ -33,7 +33,8 @@
     "build-sass": "sass ./src/styles/index.scss ./dist/index.css",
     "build-doc": "storybook build",
     "clean": "rimraf ./dist",
-    "prepublishOnly": "npm run test && npm run lint && npm run build"
+    "prepublishOnly": "npm run test && npm run lint && npm run build",
+    "prepare": "husky"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
