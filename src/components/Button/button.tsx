@@ -63,6 +63,7 @@ export const Button = ({
   children,
   href,
   icon,
+  onClick,
   ...props
 }: ButtonProps) => {
   const classes = classNames('btn', className, {
@@ -73,13 +74,24 @@ export const Button = ({
 
   if (btnType === 'link' && href)
     return (
-      <a href={href} className={classes} target="_blank">
+      <a
+        href={href}
+        className={classes}
+        target="_blank"
+        data-testid="link-button"
+        onClick={onClick}
+      >
         {children}
       </a>
     );
   else {
     return (
-      <button className={classes} disabled={disabled} {...props}>
+      <button
+        className={classes}
+        disabled={disabled}
+        onClick={onClick}
+        {...props}
+      >
         {icon && <span className="btn-icon">{icon}</span>}
         {children}
       </button>

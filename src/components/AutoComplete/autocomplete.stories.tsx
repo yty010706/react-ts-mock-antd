@@ -1,7 +1,7 @@
 import AutoComplete, { OptionType } from './autocomplete';
 import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { da, faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 
 interface ValueProp {
   name: string;

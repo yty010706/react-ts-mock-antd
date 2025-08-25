@@ -47,7 +47,7 @@ describe('Test Button', () => {
   it('Link Button渲染测试', () => {
     const clickFn = jest.fn();
     const wrapper = render(
-      <Button data-testid="link-button" {...testLinkProps} onClick={clickFn}>
+      <Button {...testLinkProps} onClick={clickFn}>
         Hello World
       </Button>
     );
