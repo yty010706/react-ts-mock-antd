@@ -6,7 +6,7 @@
 
 - Jest + react-testing-library 单元测试
 
-- StoryBook 文档生成
+- StoryBook + Github Pages 文档生成
 
   - 线上文档：
 
@@ -14,4 +14,4 @@
 
 - Npm 组件库发布
 
-- Travis CI\CD
+- Github Actions CI

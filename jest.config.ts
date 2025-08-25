@@ -11,8 +11,9 @@ const config: Config.InitialOptions = {
   },
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
   collectCoverageFrom: [
-    'src/**/*.{ts,tsx}',
-    '!src/**/*.d.ts',
+    'src/components/**/*.{ts,tsx}',
+    '!src/**/*.stories.tsx',
+    '!src/*.d.ts',
     '!src/index.tsx',
     '!src/setupTests.ts',
   ],
