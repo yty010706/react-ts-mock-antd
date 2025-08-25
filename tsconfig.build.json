@@ -28,6 +28,7 @@
     "dist",
     "build",
     "coverage",
+    "storybook-static",
     "src/App/*",
     "src/**/*.stories.tsx",
     "src/**/*.test.tsx"
