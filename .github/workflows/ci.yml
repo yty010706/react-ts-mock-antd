@@ -22,6 +22,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: 调试 - 列出文件结构
+        run: |
+          pwd
+          ls -la
+          find . -name "setupTests.ts" # 专门查找这个文件
+          find . -name "jest.config.js" # 专门查找jest配置文件
+
+      - name: 调试 - 查看 Jest 配置
+        run: |
+          npx jest --showConfig | grep -i "rootDir\|setupFilesAfterEnv" # 查看Jest最终使用的配置
+
       - name: Clear Jest cache
         run: npx jest --clearCache || true
 
