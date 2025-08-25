@@ -9,19 +9,48 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { MenuContext } from './menu';
 import classNames from 'classnames';
 import { MenuItemProps } from './menuItem';
 import Icon from '../Icon';
 import Transition from '../Transition';
+import { MenuContext } from '@/Contexts/MenuContext';
 
+/** SubMenu 子菜单属性 */
 export interface SubMenuProps {
+  /** 子菜单索引 */
   index?: string;
+  /** 子菜单标题 */
   title?: string;
+  /** 自定义类名 */
   className?: string;
+  /** 子元素 */
   children?: React.ReactNode;
 }
 
+/**
+ * 子菜单组件，用于创建多级菜单结构。
+ *
+ * ### 示例
+ *
+ * 基础子菜单
+ * ```tsx
+ * <Menu.SubMenu title="更多选项">
+ *   <Menu.Item>选项1</Menu.Item>
+ *   <Menu.Item>选项2</Menu.Item>
+ * </Menu.SubMenu>
+ * ```
+ *
+ * 嵌套子菜单
+ * ```tsx
+ * <Menu.SubMenu title="更多选项">
+ *   <Menu.Item>选项1</Menu.Item>
+ *   <Menu.SubMenu title="子选项">
+ *     <Menu.Item>子选项1</Menu.Item>
+ *     <Menu.Item>子选项2</Menu.Item>
+ *   </Menu.SubMenu>
+ * </Menu.SubMenu>
+ * ```
+ */
 export const SubMenu = ({
   index,
   title,

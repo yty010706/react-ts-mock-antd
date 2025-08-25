@@ -1,6 +1,6 @@
 import { useImmer, useImmerReducer } from 'use-immer';
 import Schema, { RuleItem, ValidateError } from 'async-validator';
-import _ from 'lodash';
+import mapValues from 'lodash-es/mapValues';
 
 export interface UseFormProps {
   initialValues?: Record<string, any>;
@@ -134,8 +134,8 @@ export default function useForm({ initialValues }: UseFormProps) {
   const validateFields = async (): Promise<ValidateResult> => {
     let isValid = true;
     let errors: Record<string, ValidateError[]> = {};
-    const ruleMap = _.mapValues(fields, field => transformRules(field.rules));
-    const valueMap = _.mapValues(fields, field => field.value);
+    const ruleMap = mapValues(fields, field => transformRules(field.rules));
+    const valueMap = mapValues(fields, field => field.value);
     const validator = new Schema(ruleMap);
 
     setForm(draft => {
@@ -178,7 +178,7 @@ export default function useForm({ initialValues }: UseFormProps) {
   };
 
   const getFieldsValue = () => {
-    return _.mapValues(fields, field => field.value);
+    return mapValues(fields, field => field.value);
   };
 
   const setFieldValue = (name: string, value: any) => {

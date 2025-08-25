@@ -1,18 +1,43 @@
+import { TabsContext } from '@/Contexts/TabsContext';
 import classNames from 'classnames';
 import { MouseEvent, ReactNode, useContext, useEffect } from 'react';
-import { TabsContext } from './tabs';
 
-interface BaseTabItemProps {
+/** TabItem 标签页项属性 */
+export interface TabItemProps extends React.HTMLAttributes<HTMLLIElement> {
+  /** 标签页索引 */
   index?: number;
+  /** 标签页标题 */
   label: ReactNode;
+  /** 是否禁用 */
   disabled?: boolean;
 }
-
-export type TabItemProps = BaseTabItemProps &
-  React.HTMLAttributes<HTMLLIElement>;
-
-const TabItem: React.FC<TabItemProps> = props => {
-  const { index, label, disabled, children, className } = props;
+/**
+ * 标签页项组件，用于Tabs组件的子项。
+ *
+ * ### 示例
+ *
+ * 基础标签项
+ * ```tsx
+ * <Tabs.Item label="Tab 1">内容1</Tabs.Item>
+ * ```
+ *
+ * 禁用标签项
+ * ```tsx
+ * <Tabs.Item label="Tab 2" disabled>内容2</Tabs.Item>
+ * ```
+ *
+ * 自定义标签
+ * ```tsx
+ * <Tabs.Item label={<span><Icon icon="user" /> 用户</span>}>用户内容</Tabs.Item>
+ * ```
+ */
+const TabItem = ({
+  index,
+  label,
+  disabled,
+  children,
+  className,
+}: TabItemProps) => {
   const { selectIndex, onSelect, setContent } = useContext(TabsContext);
 
   const classes = classNames('tabs-item', className, {
@@ -21,12 +46,16 @@ const TabItem: React.FC<TabItemProps> = props => {
   });
 
   useEffect(() => {
-    selectIndex === index && setContent!(children);
+    if (selectIndex === index) {
+      setContent!(children);
+    }
   }, [selectIndex]);
 
   const handleClick = (e: MouseEvent) => {
     e.preventDefault();
-    !disabled && onSelect && onSelect(index!);
+    if (!disabled && onSelect) {
+      onSelect(index!);
+    }
   };
 
   return (

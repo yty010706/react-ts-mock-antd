@@ -1,36 +1,63 @@
 import classNames from 'classnames';
 import React, { CSSProperties, ReactNode } from 'react';
 
-export type ButtonSize = 'small' | 'large';
+export type ButtonSize = 'small' | 'large' | 'normal';
 export type ButtonType = 'primary' | 'danger' | 'link' | 'default' | 'dashed';
 
-export interface ButtonProps {
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  /** 自定义类名 */
   className?: string;
-  /** 按钮类型*/
+  /** 按钮类型 */
   btnType?: ButtonType;
-  /** 按钮尺寸*/
+  /** 原生按钮类型 */
+  type?: 'button' | 'submit' | 'reset';
+  /** 按钮尺寸 */
   size?: ButtonSize;
+  /** 子元素 */
   children?: React.ReactNode;
-  /** 按钮禁用*/
+  /** 禁用状态 */
   disabled?: boolean;
-  /** link button的链接地址*/
+  /** 链接地址 */
   href?: string;
   /** 图标 */
   icon?: ReactNode;
+  /** 自定义样式 */
   style?: CSSProperties;
+  /** 点击事件 */
   onClick?: () => void;
 }
 
 /**
- * 页面上常见的按钮元素，用于完成特定的交互。支持HTML Button和a链接形式，具备多种类型和尺寸
- * ## 引入方式
+ * 页面上常见的按钮元素，用于完成特定的交互。支持 HTML Button 和 a 链接形式，具备多种类型和尺寸
+ *
+ * ### 示例
+ *
+ * 基础按钮
  * ```tsx
- * import {Button} from 'mockAntD'
+ * import { Button } from 'mockAntD'
  * <Button btnType='primary' size='large'>Button</Button>
+ * ```
+ *
+ * 链接按钮
+ * ```tsx
+ * <Button btnType='link' href='https://example.com'>Link Button</Button>
+ * ```
+ *
+ * 带图标按钮
+ * ```tsx
+ * import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+ * import { faCheck } from '@fortawesome/free-solid-svg-icons'
+ * <Button btnType='primary' icon={<FontAwesomeIcon icon={faCheck} />}>Confirm</Button>
+ * ```
+ *
+ * 禁用按钮
+ * ```tsx
+ * <Button disabled>Disabled Button</Button>
+ * ```
  */
 export const Button = ({
   btnType = 'default',
-  size,
+  size = 'normal',
   disabled = false,
   className,
   children,
@@ -46,7 +73,7 @@ export const Button = ({
 
   if (btnType === 'link' && href)
     return (
-      <a href={href} className={classes} {...props}>
+      <a href={href} className={classes} target="_blank">
         {children}
       </a>
     );

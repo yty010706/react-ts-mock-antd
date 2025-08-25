@@ -13,25 +13,75 @@ import {
 import Input from '../Input';
 import { InputProps } from '../Input/input';
 import Icon from '../Icon';
-import useDebounce from '@/hooks/useDebounce';
-import useClickOutside from '@/hooks/useClickOutside';
+import useDebounce from '@/Hooks/useDebounce';
+import useClickOutside from '@/Hooks/useClickOutside';
 
 export interface OptionType {
+  /**
+   * 选项的值
+   * 用于输入框显示和选中后的值
+   */
   value: string;
+  /**
+   * 选项的标签
+   * 用于下拉列表中显示
+   */
   label: ReactNode;
 }
 
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
-  /** 数据化配置选项内容 */
+  /**
+   * 数据化配置选项内容
+   * 静态选项列表
+   */
   options?: OptionType[];
-  /** 输入框变化时调用 */
+  /**
+   * 输入框变化时调用
+   * 当输入框内容变化时触发，用于异步获取选项列表
+   */
   onSearch?: (text: string) => Promise<OptionType[]>;
-  /** 选中option时调用 */
+  /**
+   * 选中option时调用
+   * 当用户选中下拉列表中的选项时触发
+   */
   onSelect?: (item: OptionType) => void;
-  /** 定义option的渲染方式 */
+  /**
+   * 定义option的渲染方式
+   * 自定义下拉选项的渲染方式
+   */
   renderOptions?: (item: OptionType) => ReactNode;
+  /**
+   * 自定义样式
+   * 应用到组件根元素的样式
+   */
   style?: CSSProperties;
 }
+
+/**
+ * AutoComplete 自动完成组件
+ *
+ * 当用户输入内容时，可以根据输入内容显示匹配的选项列表，支持异步加载数据和自定义选项渲染。
+ * 常用于搜索建议、表单填写等场景。
+ *
+ * 支持键盘操作：
+ * - 上下箭头键：在选项间导航
+ * - Enter键：选中当前高亮的选项
+ * - Esc键：关闭下拉列表
+ *
+ * ```tsx
+ * <AutoComplete
+ *   placeholder="请输入内容"
+ *   onSearch={query => {
+ *     return fetch(`/api/search?q=${query}`)
+ *       .then(res => res.json())
+ *       .then(data => data.map((item: any) => ({
+ *         value: item.name,
+ *         label: item.name
+ *       })));
+ *   }}
+ * />
+ * ```
+ */
 const AutoComplete = ({
   onSearch,
   onSelect,
@@ -57,7 +107,7 @@ const AutoComplete = ({
   useEffect(() => {
     if (debouncedValue && triggerSearch.current) {
       setLoading(true);
-      onSearch!(debouncedValue).then(results => {
+      onSearch?.(debouncedValue).then(results => {
         setSuggestions(results);
         setLoading(false);
         setActiveIdx(0);
@@ -76,14 +126,18 @@ const AutoComplete = ({
   const handleClick = (item: OptionType) => {
     setInputValue(item.value);
     setSuggestions([]);
-    onSelect && onSelect(item);
+    if (onSelect) {
+      onSelect(item);
+    }
     triggerSearch.current = false;
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     switch (e.key) {
       case 'Enter':
-        suggestions.length > 0 && handleClick(suggestions[activeIdx]);
+        if (suggestions.length > 0) {
+          handleClick(suggestions[activeIdx]);
+        }
         break;
       case 'Escape':
         setSuggestions([]);

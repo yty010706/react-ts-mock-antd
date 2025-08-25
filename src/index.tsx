@@ -18,7 +18,7 @@ export { default as Icon } from './components/Icon';
 
 export { default as Transition } from './components/Transition';
 
-import './index.css';
+import './styles/index.scss';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';

@@ -1,7 +1,7 @@
 import AutoComplete, { OptionType } from './autocomplete';
 import { fn } from 'storybook/test';
 import { Meta, StoryObj } from '@storybook/react-vite';
-import { faker } from '@faker-js/faker';
+import { da, faker } from '@faker-js/faker';
 
 interface ValueProp {
   name: string;
@@ -53,7 +53,7 @@ const renderOptions = (item: OptionType) => {
 };
 
 const meta = {
-  title: 'AutoComplete',
+  title: 'AutoComplete 自动补全',
   component: AutoComplete,
   tags: ['autodocs'],
   args: {
@@ -89,5 +89,31 @@ export const AsyncOption: Story = {
   name: '异步获取选项',
   args: {
     onSearch: handleSearchAsync,
+  },
+};
+
+export const WithPlaceholder: Story = {
+  name: '带占位符',
+  args: {
+    placeholder: '请输入内容',
+    options: generateOptions(data),
+  },
+};
+
+export const DisabledAutoComplete: Story = {
+  name: '禁用状态',
+  args: {
+    disabled: true,
+    placeholder: '禁用状态',
+    options: generateOptions(data),
+  },
+};
+
+export const CustomStyle: Story = {
+  name: '自定义样式',
+  args: {
+    placeholder: '自定义宽度和样式',
+    style: { width: 500, margin: 20, backgroundColor: '#f5f5f5' },
+    options: generateOptions(data),
   },
 };

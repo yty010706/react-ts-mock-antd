@@ -26,7 +26,7 @@ const WelcomePage = () => {
               <strong>2. 引入组件</strong>
             </p>
             <pre className="code-block">
-              <code>{`import { Button } from 'yty-reactr-component-library';\n\nfunction App() {\n  return <Button>你好世界</Button>;\n}`}</code>
+              <code>{`import { Button } from 'yty-react-component-library';\n\nfunction App() {\n  return <Button>你好世界</Button>;\n}`}</code>
             </pre>
           </div>
         </section>

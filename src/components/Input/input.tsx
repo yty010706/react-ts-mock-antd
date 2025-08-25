@@ -3,16 +3,17 @@ import classNames from 'classnames';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import Icon from '../Icon';
 
+/** Input 输入框属性 */
 export interface InputProps
   extends Omit<
     React.InputHTMLAttributes<HTMLElement>,
     'size' | 'prefix' | 'suffix'
   > {
-  /** 尺寸 */
+  /** 输入框尺寸 */
   size?: 'sm' | 'lg';
-  /** 禁用 */
+  /** 是否禁用 */
   disabled?: boolean;
-  /** 图标 */
+  /** 输入框图标 */
   icon?: IconProp;
   /** 前缀 */
   prefix?: React.ReactNode;
@@ -22,6 +23,47 @@ export interface InputProps
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
+/**
+ * 通过鼠标或键盘输入内容，是最基础的表单域的包装。
+ *
+ * ### 何时使用
+ *
+ * - 需要用户输入表单域内容时
+ * - 提供组合型输入框，带搜索的输入框，可以进行大小选择
+ *
+ * ### 示例
+ *
+ * 基础用法
+ * ```tsx
+ * <Input placeholder="请输入内容" />
+ * ```
+ *
+ * 不同尺寸
+ * ```tsx
+ * <Input size="sm" placeholder="小尺寸" />
+ * <Input size="lg" placeholder="大尺寸" />
+ * ```
+ *
+ * 禁用状态
+ * ```tsx
+ * <Input disabled placeholder="禁用状态" />
+ * ```
+ *
+ * 带图标
+ * ```tsx
+ * <Input icon="search" placeholder="搜索" />
+ * ```
+ *
+ * 带前后缀
+ * ```tsx
+ * <Input prefix="https://" suffix=".com" placeholder="网址" />
+ * ```
+ *
+ * 密码输入框
+ * ```tsx
+ * <Input type="password" icon="lock" placeholder="请输入密码" />
+ * ```
+ */
 const Input: React.FC<InputProps> = ({
   size,
   disabled = false,
