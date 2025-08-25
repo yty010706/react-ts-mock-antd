@@ -8,7 +8,57 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  {
+    ignores: [
+      // 构建输出目录
+      'dist/',
+      '/dist/*',
+      'build/',
+      '/build/*',
+      '.out/',
+      '/.out/*',
+
+      // 依赖目录
+      'node_modules/',
+      '/node_modules/*',
+
+      // 缓存和临时文件
+      '.cache/',
+      '/.cache/*',
+      '.tmp/',
+      '/.tmp/*',
+      '*.tmp',
+
+      // 环境配置文件
+      '.env',
+      '.env.local',
+      '.env.development.local',
+      '.env.test.local',
+      '.env.production.local',
+
+      // 日志文件
+      'npm-debug.log*',
+      'yarn-debug.log*',
+      'yarn-error.log*',
+
+      // 运行时状态文件
+      '*.pid',
+      '*.pid.lock',
+
+      // IDE和编辑器文件
+      '.vscode/',
+      '/.vscode/*',
+      '.idea/',
+      '/.idea/*',
+      '*.swp',
+      '*.swo',
+
+      // 其他
+      'coverage/',
+      '/coverage/*',
+      '.DS_Store',
+    ],
+  },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],

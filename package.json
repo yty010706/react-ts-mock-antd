@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "test": "jest --coverage",
+    "test": "jest",
     "storybook": "storybook dev -p 6006",
     "lint": "eslint --ext js,ts,tsx src --max-warnings 20",
     "build": "npm run clean && npm run build-ts && npm run build-sass",
