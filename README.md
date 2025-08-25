@@ -1,14 +1,17 @@
 # 仿 AntD 组件库（部分组件）
 
-### React + TypeScript 组件编码
+实现了包括 Button、Form、Input、Tabs、Upload、Menu 等在内的多个核心 UI 组件
 
-### Jest + react-testing-library 组件测试
+- React + TypeScript 编码
 
-### StoryBook 组件文档
-线上文档：
+- Jest + react-testing-library 单元测试
 
-### Rollup 构建
+- StoryBook 文档生成
 
-### Npm 发布
+  - 线上文档：
 
-### Travis CI
+- Rollup 项目构建
+
+- Npm 组件库发布
+
+- Travis CI\CD
