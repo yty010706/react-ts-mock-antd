@@ -271,7 +271,7 @@ const MockServerPlugin = (): Plugin => {
         }
 
         // 删除文件
-        if (method === 'DELETE' && pathname.match(/^[^\/]+$/)) {
+        if (method === 'DELETE') {
           const uid = pathname.split('/').pop() || '';
           console.log(`[Mock Server] Deleting file with UID: ${uid}`);
           handleDeleteFile(req, res, uid);
@@ -279,7 +279,7 @@ const MockServerPlugin = (): Plugin => {
         }
 
         // 普通上传接口
-        if (method === 'POST' && pathname === '/api/upload') {
+        if (method === 'POST' && pathname === '') {
           console.log('[Mock Server] Uploading file');
           handleNormalUpload(req, res);
           return;
