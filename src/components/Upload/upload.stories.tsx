@@ -17,7 +17,6 @@ const meta = {
   tags: ['autodocs'],
   args: {
     action: 'https://jsonplaceholder.typicode.com/posts',
-    beforeUpload: checkFileSize,
     onProgress: fn(),
     onSuccess: fn(),
     onError: fn(),
@@ -73,13 +72,25 @@ export const MultipleUpload: Story = {
   },
 };
 
-export const WithAccept: Story = {
+export const LimitFileType: Story = {
   name: '限制文件类型',
   args: {
     accept: '.jpg,.jpeg,.png',
     children: (
       <Button btnType="default" icon={<Icon icon="image" />}>
         上传图片
+      </Button>
+    ),
+  },
+};
+
+export const LimitFileSize: Story = {
+  name: '限制文件大小',
+  args: {
+    beforeUpload: checkFileSize,
+    children: (
+      <Button btnType="default" icon={<Icon icon="upload" />}>
+        上传小于2MB的文件
       </Button>
     ),
   },
@@ -123,6 +134,20 @@ export const CustomData: Story = {
     children: (
       <Button btnType="primary" icon={<Icon icon="user" />}>
         上传头像
+      </Button>
+    ),
+  },
+};
+
+export const ChunkedUpload: Story = {
+  name: '分片上传',
+  args: {
+    action: 'http://localhost:6006/api/upload',
+    chunked: true,
+    chunkSize: 1024 * 1024,
+    children: (
+      <Button btnType="primary" icon={<Icon icon="upload" />}>
+        分片上传大文件
       </Button>
     ),
   },

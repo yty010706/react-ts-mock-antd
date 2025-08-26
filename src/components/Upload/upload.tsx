@@ -112,6 +112,14 @@ export interface UploadProps {
    * 自定义类名
    */
   className?: string;
+  /**
+   * 是否启用分片上传
+   */
+  chunked?: boolean;
+  /**
+   * 分片大小 (bytes)
+   */
+  chunkSize?: number;
 }
 
 /**
@@ -147,6 +155,8 @@ export default function Upload({
   data,
   withCredentials = false,
   drag = false,
+  chunked = false,
+  chunkSize = 1024 * 1024, // 默认1MB
   children,
   style,
 }: UploadProps) {
@@ -173,16 +183,28 @@ export default function Upload({
         if (result instanceof Promise) {
           result
             .then(processedFile => {
-              postData(processedFile);
+              if (chunked) {
+                uploadChunkedFile(processedFile);
+              } else {
+                postData(processedFile);
+              }
             })
             .catch(err => alert(err));
         } else {
           if (result) {
-            postData(file);
+            if (chunked) {
+              uploadChunkedFile(file);
+            } else {
+              postData(file);
+            }
           }
         }
       } else {
-        postData(file);
+        if (chunked) {
+          uploadChunkedFile(file);
+        } else {
+          postData(file);
+        }
       }
     });
   };
@@ -230,6 +252,129 @@ export default function Upload({
           error: err,
         });
       });
+  };
+
+  // 分片上传文件
+  const uploadChunkedFile = async (file: File) => {
+    const newFile = createUploadFile(file);
+    const totalChunks = Math.ceil(file.size / chunkSize);
+    let uploadedChunks = 0;
+
+    // 检查服务器上是否已存在部分上传的分片
+    let uploadedChunkIndices: number[] = [];
+    try {
+      const checkResponse = await axios.get(`${action}/chunks/${newFile.uid}`);
+      uploadedChunkIndices = checkResponse.data.uploadedChunks || [];
+    } catch (err) {
+      // 如果检查失败，则从头开始上传
+      console.warn(
+        'Failed to check uploaded chunks, starting from beginning',
+        err
+      );
+    }
+
+    // 更新文件状态为上传中
+    updateUploadFile(newFile, { status: 'uploading' });
+
+    // 逐个上传分片
+    for (let i = 0; i < totalChunks; i++) {
+      // 如果分片已经上传过，则跳过
+      if (uploadedChunkIndices.includes(i)) {
+        uploadedChunks++;
+        const percentage = Math.round((uploadedChunks / totalChunks) * 100);
+        updateUploadFile(newFile, { percentage });
+        onProgress?.(percentage, file);
+        continue;
+      }
+
+      const start = i * chunkSize;
+      const end = Math.min(file.size, start + chunkSize);
+      const chunk = file.slice(start, end);
+
+      const formData = new FormData();
+      formData.append('chunk', chunk);
+      formData.append('uid', newFile.uid);
+      formData.append('filename', file.name);
+      formData.append('chunkIndex', i.toString());
+      formData.append('totalChunks', totalChunks.toString());
+
+      if (data) {
+        Object.keys(data).forEach(key => {
+          formData.append(key, data[key]);
+        });
+      }
+
+      try {
+        await axios.post(`${action}/chunk`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            ...headers,
+          },
+          onUploadProgress: (e: AxiosProgressEvent) => {
+            const chunkPercentage =
+              Math.round((e.loaded * 100) / e.total!) || 0;
+            const overallPercentage = Math.round(
+              ((uploadedChunks + chunkPercentage / 100) / totalChunks) * 100
+            );
+            if (overallPercentage < 100) {
+              updateUploadFile(newFile, { percentage: overallPercentage });
+              onProgress?.(overallPercentage, file);
+            }
+          },
+          withCredentials,
+        });
+
+        uploadedChunks++;
+        const percentage = Math.round((uploadedChunks / totalChunks) * 100);
+        updateUploadFile(newFile, { percentage });
+        onProgress?.(percentage, file);
+      } catch (err) {
+        onChange?.(newFile);
+        onError?.(err, newFile);
+        updateUploadFile(newFile, {
+          percentage: Math.round((uploadedChunks / totalChunks) * 100),
+          status: 'error',
+          error: err,
+        });
+        return; // 上传出错则终止
+      }
+    }
+
+    // 所有分片上传完成后，通知服务器合并分片
+    try {
+      const mergeResponse = await axios.post(
+        `${action}/merge`,
+        {
+          uid: newFile.uid,
+          filename: file.name,
+          totalChunks,
+          ...(data || {}),
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            ...headers,
+          },
+          withCredentials,
+        }
+      );
+
+      onChange?.(newFile);
+      onSuccess?.(mergeResponse.data, newFile);
+      updateUploadFile(newFile, {
+        percentage: 100,
+        status: 'success',
+        response: mergeResponse.data,
+      });
+    } catch (err) {
+      onChange?.(newFile);
+      onError?.(err, newFile);
+      updateUploadFile(newFile, {
+        percentage: 100,
+        status: 'error',
+        error: err,
+      });
+    }
   };
 
   const createUploadFile = (file: File) => {

@@ -73,12 +73,12 @@ const WelcomePage = () => {
               className="repo-button"
               onClick={() =>
                 window.open(
-                  'https://gitee.com/yty010706/react_ts_mock_antd',
+                  'https://github.com/yty010706/react-ts-mock-antd',
                   '_blank'
                 )
               }
             >
-              查看Gitee仓库
+              查看Github仓库
             </Button>
           </div>
         </section>

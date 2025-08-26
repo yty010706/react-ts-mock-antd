@@ -29,6 +29,7 @@
     "dist",
     "build",
     "coverage",
+    "uploads",
     "storybook-static",
     "src/PageTest/*",
     "src/plugins/*",
