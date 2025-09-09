@@ -93,3 +93,38 @@ export const BlockButton: Story = {
     style: { display: 'block', width: '100%' },
   },
 };
+
+export const IconWithTheme: Story = {
+  name: '带主题色图标按钮',
+  args: {
+    btnType: 'default',
+    children: 'Success',
+    icon: <Icon icon="check" theme="success" />,
+  },
+};
+
+export const DifferentIconSizes: Story = {
+  name: '不同尺寸图标按钮',
+  render: () => (
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+      <Button btnType="primary" icon={<Icon icon="coffee" size="xs" />}>
+        XS Icon
+      </Button>
+      <Button btnType="primary" icon={<Icon icon="coffee" size="lg" />}>
+        LG Icon
+      </Button>
+      <Button btnType="primary" icon={<Icon icon="coffee" size="2x" />}>
+        2x Icon
+      </Button>
+    </div>
+  ),
+};
+
+export const IconOnlyButton: Story = {
+  name: '仅图标按钮',
+  args: {
+    btnType: 'primary',
+    icon: <Icon icon="star" />,
+    style: { width: '40px', height: '40px', padding: 0 },
+  },
+};

@@ -69,12 +69,14 @@ export default function TestForm() {
             <Input type="password" />
           </Item>
           <div className="button-group" style={{ textAlign: 'center' }}>
-            <Button
-              btnType="primary"
-              icon={isSubmitting && <Icon icon="spinner" spin />}
-            >
-              登录
-            </Button>
+            {isSubmitting ? (
+              <Button btnType="primary" icon={<Icon icon="spinner" spin />}>
+                登录
+              </Button>
+            ) : (
+              <Button btnType="primary">登录</Button>
+            )}
+
             <Button style={{ marginLeft: 30 }}>取消</Button>
           </div>
         </>

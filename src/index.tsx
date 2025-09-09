@@ -20,6 +20,8 @@ export { default as Transition } from './components/Transition';
 
 import './styles/index.scss';
 
+export { default as styles } from './styles/index.scss';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);

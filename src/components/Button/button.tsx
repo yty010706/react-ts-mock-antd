@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, ReactElement } from 'react';
+import { IconProps } from '../Icon/icon';
 
 export type ButtonSize = 'small' | 'large' | 'normal';
 export type ButtonType = 'primary' | 'danger' | 'link' | 'default' | 'dashed';
@@ -20,7 +21,7 @@ export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   /** 链接地址 */
   href?: string;
   /** 图标 */
-  icon?: ReactNode;
+  icon?: ReactElement<IconProps>;
   /** 自定义样式 */
   style?: CSSProperties;
   /** 点击事件 */

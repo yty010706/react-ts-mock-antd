@@ -11,22 +11,7 @@ export default defineConfig({
       '@components': resolve(__dirname, 'src/components'),
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        quietDeps: true,
-        silenceDeprecations: [
-          'color-functions',
-          'import',
-          'global-builtin',
-          'slash-div',
-        ],
-      },
-    },
-  },
-  build: {
-    lib: {
-      entry: resolve(__dirname, 'src/index.tsx'),
-    },
+  server: {
+    open: true,
   },
 });

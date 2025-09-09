@@ -1,9 +1,10 @@
 {
   "name": "yty-react-component-library",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.esm.js",
+  "types": "dist/types/index.d.ts",
   "description": "React Component Library like AntD",
   "author": {
     "name": "yty",
@@ -23,6 +24,19 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.esm.js"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./index.css": "./dist/index.css"
+  },
   "scripts": {
     "dev": "vite",
     "test": "jest",

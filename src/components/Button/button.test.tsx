@@ -1,5 +1,6 @@
 import { render, fireEvent } from '@testing-library/react';
 import Button, { ButtonProps } from './button';
+import Icon from '../Icon';
 
 const testProps: ButtonProps = {
   btnType: 'danger',
@@ -73,5 +74,44 @@ describe('Test Button', () => {
     expect(button.disabled).toBeTruthy();
     fireEvent.click(button);
     expect(clickFn).not.toHaveBeenCalled();
+  });
+
+  it('带Icon组件的Button渲染测试', () => {
+    const wrapper = render(
+      <Button
+        data-testid="icon-button"
+        btnType="primary"
+        icon={<Icon icon="check" data-testid="check-icon" />}
+      >
+        Confirm
+      </Button>
+    );
+
+    const button = wrapper.getByTestId('icon-button');
+    const icon = wrapper.getByTestId('check-icon');
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('btn btn-primary');
+    expect(icon).toBeInTheDocument();
+    expect(icon.tagName).toBe('svg'); // FontAwesome图标渲染为svg元素
+    expect(button.textContent).toBe('Confirm');
+  });
+
+  it('仅包含Icon组件的Button渲染测试', () => {
+    const wrapper = render(
+      <Button
+        data-testid="icon-only-button"
+        btnType="default"
+        icon={<Icon icon="star" theme="warning" data-testid="star-icon" />}
+      />
+    );
+
+    const button = wrapper.getByTestId('icon-only-button');
+    const icon = wrapper.getByTestId('star-icon');
+
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('btn btn-default');
+    expect(icon).toBeInTheDocument();
+    expect(icon).toHaveClass('icon-warning'); // 验证主题类名
   });
 });
