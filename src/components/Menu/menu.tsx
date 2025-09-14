@@ -93,11 +93,13 @@ export const Menu = ({
   ...props
 }: MenuProps) => {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
+
   const classes = useMemo(() => {
     return classNames('menu', className, {
       [`menu-${mode}`]: mode,
     });
   }, [mode]);
+
   const passedContext = useMemo(() => {
     return {
       selectIdx: activeIndex,

@@ -35,7 +35,7 @@ export default function UploadList({
       {files.map(file => (
         <li className={`upload-list-item-${file.status}`} key={file.uid}>
           <div className="item-content">
-            <span> {file.name}</span>
+            <span>{file.name}</span>
             <span className="close-icon" onClick={() => removeUploadFile(file)}>
               <Icon icon="close" />
             </span>

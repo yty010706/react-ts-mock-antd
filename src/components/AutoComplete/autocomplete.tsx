@@ -99,6 +99,7 @@ const AutoComplete = ({
 
   const triggerSearch = useRef(false);
   const componentRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
 
   useClickOutside(componentRef as RefObject<HTMLDivElement>, () => {
     setHide(true);
@@ -170,34 +171,149 @@ const AutoComplete = ({
     }
     setActiveIdx(idx);
   };
+
+  // 虚拟滚动相关状态
+  const [visibleStart, setVisibleStart] = useState(0);
+  const [visibleEnd, setVisibleEnd] = useState(10);
+  const itemHeight = 36; // 每个选项的高度
+  const visibleCount = 10; // 可见选项数量
+
+  // 使用 Intersection Observer 实现虚拟滚动
+  const observer = useRef<IntersectionObserver | null>(null);
+  const sentinelRefs = useRef<Map<number, HTMLLIElement>>(new Map());
+
+  useEffect(() => {
+    // 创建 Intersection Observer
+    observer.current = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const direction = entry.boundingClientRect.top < 0 ? 'down' : 'up';
+
+            if (direction === 'down') {
+              setVisibleStart(prev =>
+                Math.min(prev + 5, suggestions.length - visibleCount)
+              );
+              setVisibleEnd(prev => Math.min(prev + 5, suggestions.length));
+            } else {
+              setVisibleStart(prev => Math.max(prev - 5, 0));
+              setVisibleEnd(prev => Math.max(prev - 5, visibleCount));
+            }
+          }
+        });
+      },
+      {
+        root: listRef.current,
+        rootMargin: '50% 0px',
+        threshold: 0.1,
+      }
+    );
+
+    // 观察哨兵元素
+    sentinelRefs.current.forEach(element => {
+      observer.current?.observe(element);
+    });
+
+    return () => {
+      observer.current?.disconnect();
+    };
+  }, [suggestions.length]);
+
   const dropDownCom = useMemo(() => {
+    // 计算实际渲染的项目
+    const visibleItems = suggestions.slice(visibleStart, visibleEnd);
+
     return (
       <ul
         className="auto-complete-suggestions"
         onMouseOver={handleMouseEnter}
         data-testid="auto-complete-suggestions"
+        ref={listRef}
+        style={{
+          maxHeight: `${itemHeight * visibleCount}px`,
+          overflowY: 'auto',
+        }}
       >
         {loading ? (
           <div style={{ textAlign: 'center' }}>
             <Icon icon="spinner" spin />
           </div>
         ) : (
-          suggestions.map((item, idx) => (
-            <li
-              className={`auto-complete-suggestions-item ${
-                activeIdx === idx ? 'active' : ''
-              }`}
-              key={item.value}
-              data-index={idx}
-              onClick={() => handleClick(item)}
-            >
-              {renderOptions ? renderOptions(item) : item.value}
-            </li>
-          ))
+          <>
+            {/* 顶部填充 */}
+            {visibleStart > 0 && (
+              <div style={{ height: `${visibleStart * itemHeight}px` }} />
+            )}
+
+            {visibleItems.map((item, idx) => {
+              const actualIndex = visibleStart + idx;
+              return (
+                <li
+                  className={`auto-complete-suggestions-item ${
+                    activeIdx === actualIndex ? 'active' : ''
+                  }`}
+                  key={item.value}
+                  data-index={actualIndex}
+                  onClick={() => handleClick(item)}
+                  style={{ height: `${itemHeight}px` }}
+                >
+                  {renderOptions ? renderOptions(item) : item.value}
+                </li>
+              );
+            })}
+
+            {/* 底部填充 */}
+            {visibleEnd < suggestions.length && (
+              <div
+                style={{
+                  height: `${(suggestions.length - visibleEnd) * itemHeight}px`,
+                }}
+              />
+            )}
+
+            {/* 哨兵元素用于触发 Intersection Observer */}
+            {suggestions.length > 0 && (
+              <>
+                <li
+                  ref={el => {
+                    if (el) sentinelRefs.current.set(0, el);
+                  }}
+                  data-index="0"
+                  style={{
+                    height: '1px',
+                    position: 'absolute',
+                    top: '20%',
+                    width: '100%',
+                  }}
+                />
+                <li
+                  ref={el => {
+                    if (el)
+                      sentinelRefs.current.set(suggestions.length - 1, el);
+                  }}
+                  data-index={suggestions.length - 1}
+                  style={{
+                    height: '1px',
+                    position: 'absolute',
+                    top: '80%',
+                    width: '100%',
+                  }}
+                />
+              </>
+            )}
+          </>
         )}
       </ul>
     );
-  }, [suggestions, activeIdx, loading]);
+  }, [
+    suggestions,
+    activeIdx,
+    loading,
+    visibleStart,
+    visibleEnd,
+    itemHeight,
+    visibleCount,
+  ]);
 
   return (
     <div className="auto-complete" style={style} ref={componentRef}>

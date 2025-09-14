@@ -336,7 +336,7 @@ export default function Upload({
           status: 'error',
           error: err,
         });
-        return; // 上传出错则终止
+        throw err; // 上传出错则终止
       }
     }
 

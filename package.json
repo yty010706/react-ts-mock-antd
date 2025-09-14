@@ -16,10 +16,10 @@
     "Component",
     "UI"
   ],
-  "homepage": "https://gitee.com/yty010706/react_ts_mock_antd",
+  "homepage": "https://github.com/yty010706/react-ts-mock-antd",
   "repository": {
-    "type": "gitee",
-    "url": "https://gitee.com/yty010706/react_ts_mock_antd"
+    "type": "github",
+    "url": "https://github.com/yty010706/react-ts-mock-antd"
   },
   "files": [
     "dist"
